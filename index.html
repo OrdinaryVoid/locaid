@@ -332,6 +332,7 @@
           </div>
         </div>
         <button id="filterContainer">Show Filters</button>
+
 <div id="filterContent" style="display: none;">
   <label for="type-select" id="type-label">Choose Type:</label>
   <select id="type-select">
@@ -353,6 +354,7 @@
     <option value="25">25+ miles</option>
   </select>
 </div>
+
 <button id="locationButton" class="custom-map-control-button">Pan to Current Location</button>
 
 <svg class="marker-pin" xmlns="http://www.w3.org/2000/svg" width="26" height="38" fill="none">
@@ -367,6 +369,7 @@
     if (filterContent.style.display === "none" || filterContent.style.display === "") {
       filterContent.style.display = "block"; 
       button.textContent = "Hide Filters"; 
+      button.parentNode.insertBefore(filterContent, button);
     } else {
       filterContent.style.display = "none"; 
       button.textContent = "Show Filters"; 
