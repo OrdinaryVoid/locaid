@@ -332,49 +332,40 @@
           </div>
         </div>
         <!-- Filter content (initially hidden) -->
-<div id="filterContent" style="display: none; margin-bottom: 10px;">
-  <label for="type-select" id="type-label">Choose Type:</label>
-  <select id="type-select">
-    <option id="allTypesButton" value="allType">All Types</option>
-    <option id="foodBankButton" value="Foodbanks">Food Bank</option>
-    <option id="internetButton" value="Internetspot">Internet Spots</option>
-    <option id="housingButton" value="Housing">Housing</option>
-    <option id="financialButton" value="Financial">Financial</option>
-    <option id="waterFountainButton" value="water_fountain">Water Fountain</option>
-    <option id="openNowButton" value="openNow">Open Now</option>
-  </select>
-  <label for="distance-select" id="distance-label">Choose Distance:</label>
-  <select id="distance-select">
-    <option value="2">2 miles</option>
-    <option value="5">5 miles</option>
-    <option value="10">10 miles</option>
-    <option value="15">15 miles</option>
-    <option value="20">20 miles</option>
-    <option value="25">25+ miles</option>
-  </select>
-</div>
-
-<!-- Show Filters button -->
-<button id="filterContainer" id="showFilterButton">Show Filters</button>
-
-<!-- Other elements -->
-<button id="locationButton" class="custom-map-control-button">Pan to Current Location</button>
-
-<svg class="marker-pin" xmlns="http://www.w3.org/2000/svg" width="26" height="38" fill="none">
-  <path d="M13 0C5.817 0 0 5.93 0 13.267c0 7.862 5.59 10.81 9.555 17.624C12.09 35.248 11.342 38 13 38c1.723 0 .975-2.817 3.445-7.043C20.085 24.503 26 21.162 26 13.267 26 5.93 20.183 0 13 0Z"/>
-</svg>
-
-<script>
- document.getElementById("showFilterButton").addEventListener("click", function () {
+<div id="filterContainer" style="display: none;">
+          <label for="type-select" id="type-label">Choose Type:</label>
+          <select id="type-select">
+            <option id="allTypesButton" value="allType">All Types</option>
+            <option id="foodBankButton" value="Foodbanks">Food Bank</option>
+            <option id="internetButton" value="Internetspot">Internet Spots</option>
+            <option id="housingButton" value="Housing">Housing</option>
+            <option id="financialButton" value="Financial">Financial</option>
+            <option id="waterFountainButton" value="water_fountain">Water Fountain</option>
+            <option id="openNowButton" value="openNow">Open Now </option>
+          </select>
+          <label for="distance-select" id="distance-label">Choose Distance:</label>
+          <select id="distance-select">
+            <option value="2">2 miles</option>
+            <option value="5">5 miles</option>
+            <option value="10">10 miles</option>
+            <option value="15">15 miles</option>
+            <option value="20">20 miles</option>
+            <option value="25">25+ miles </option>
+          </select>
+        </div>
+        <button id="locationButton" class="custom-map-control-button">Pan to Current Location</button>
+        <button id="showFilterButton">Show Filters</button>
+        <svg class="marker-pin" xmlns="http://www.w3.org/2000/svg" width="26" height="38" fill="none">
+          <path d="M13 0C5.817 0 0 5.93 0 13.267c0 7.862 5.59 10.81 9.555 17.624C12.09 35.248 11.342 38 13 38c1.723 0 .975-2.817 3.445-7.043C20.085 24.503 26 21.162 26 13.267 26 5.93 20.183 0 13 0Z"/>
+        </svg>
+      </div>
+      <script>
+        document.getElementById("showFilterButton").addEventListener("click", function () {
           const filterContainer = document.getElementById("filterContainer");
-          const showFilterButton = document.getElementById("showFilterButton");
-
           if (filterContainer.style.display === "none" || filterContainer.style.display === "") {
             filterContainer.style.display = "block"; // Show the filter container
-            showFilterButton.textContent = "Hide Filters"; // Change button text
           } else {
             filterContainer.style.display = "none"; // Hide the filter container
-            showFilterButton.textContent = "Show Filters"; // Change button text back
           }
         });
         const translationAPIKey = "AIzaSyA90o0-BpfI7NmwgajX_frr51V7O1hhHes";
