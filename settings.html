@@ -12,51 +12,49 @@
 <body>
   
   <header class="header">
-    <section class="header-title-line">                    
-        <button id="menuButton" class="menu-button">
-            <div class="menu-icon"></div>
-        </button>
-    </section>
-    <img src="img/Screenshot 2025-01-30 at 12.54.57 PM-2.png" alt="LOCATE Logo" title="Placeholder" width="80" height="80" class="header__img">
-    <nav class="header__nav" id="nav-menu">
-        <ul class="header__ul center nowrap">
-            <li><p class="header__li"><a href="home.html" target="_blank" id="home">Home</a></p></li>
-            <li><p class="header__li"><a href="favorites.html" target="_blank" id="favorites">Favorites</a></p></li>
-            <li><p class="header__li"><a href="events.html" target="_blank" id="events">Events</a></p></li>
+  <section class="header-title-line">
+      <button id="menuButton" class="menu-button">
+          <div class="menu-icon"></div>
+      </button>
+  </section>
+  <img src="img/Screenshot 2025-01-30 at 12.54.57 PM-2.png" alt="LOCATE Logo" title="Placeholder" width="80" height="80" class="header__img">
+  <nav class="header__nav" id="nav-menu">
+      <ul class="header__ul center nowrap">
+          <li><p id="nav" class="header__li"><a href="index.html" target="_blank">Home</a></p></li>
+          <li><p id="nav" class="header__li"><a href="favorites.html" target="_blank">Favorites</a></p></li>
+          <li><p id="nav" class="header__li"><a href="events.html" target="_blank">Events</a></p></li>
 
-            <div class="dropdown">
-                <li><p class="header__li dropdown-arrow" id="btn">
-                    <button class="dropdown-button" onclick="toggleDropdown('programs')" id="programs">Programs</button>
-                </p></li>
-                <div class="dropdown-content" id="programs-dropdown">
-                    <ul class="dropdown__ul">
-                        <li><a href="food.html" target="_blank" id="food">Food</a></li>
-                        <li><a href="healthcare.html" target="_blank" id="healthcare">Healthcare</a></li>
-                        <li><a href="housing.html" target="_blank" id="housing">Housing</a></li>
-                        <li><a href="financial.html" target="_blank" id="financial">Financial</a></li>
-                        <li><a href="other.html" target="_blank" id="other">Other</a></li>
-                    </ul>
-                </div>
-            </div>
+          <div class="dropdown">
+              <li><p id="nav" class="header__li dropdown-arrow">
+                  <button class="dropdown-button" onclick="toggleDropdown('programs')">Programs</button>
+              </p></li>
+              <div class="dropdown-content" id="programs-dropdown">
+                  <ul class="dropdown__ul">
+                      <li><a href="food.html" target="_blank">Food</a></li>
+                      <li><a href="healthcare.html" target="_blank">Healthcare</a></li>
+                      <li><a href="housing.html" target="_blank">Housing</a></li>
+                      <li><a href="financial.html" target="_blank">Financial</a></li>
+                      <li><a href="other.html" target="_blank">Other</a></li>
+                  </ul>
+              </div>
+          </div>
+          <div class="dropdown">
+              <li><p id="nav" class="header__li dropdown-arrow">
+                  <button class="dropdown-button" onclick="toggleDropdown('more')">More</button>
+              </p></li>
+              <div class="dropdown-content" id="more-dropdown">
+                  <ul class="dropdown__ul">
+                      <li><a href="add.html" target="_blank">Add Item</a></li>
+                      <li><a href="remove.html" target="_blank">Remove Item</a></li>
+                      <li><a href="feedback.html" target="_blank">Feedback</a></li>
+                      <li><a href="settings.html" target="_blank">Settings</a></li>
+                  </ul>
+              </div>
+          </div>
 
-            <div class="dropdown">
-                <li><p class="header__li dropdown-arrow" id="nav btn">
-                    <button class="dropdown-button" onclick="toggleDropdown('more')" id="more">More</button>
-                </p></li>
-                <div class="dropdown-content" id="more-dropdown">
-                    <ul class="dropdown__ul">
-                        <li><a href="add.html" target="_blank" id="add">Add Item</a></li>
-                        <li><a href="remove.html" target="_blank" id="remove">Remove Item</a></li>
-                        <li><a href="feedback.html" target="_blank" id="feedback">Feedback</a></li>
-                        <li><a href="settings.html" target="_blank" id="settings">Settings</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <li class="li__img light"><img src="img/Screenshot 2025-02-06 at 9.40.15 PM.png" alt="LOCATE Logo" title="Placeholder" width="72" height="72"></li>
-            <li class="li__img dark"><img src="img/Screenshot 2025-02-06 at 9.24.10 PM.png" alt="Logo" width="80" height="80"></li>
-        </ul>
-    </nav>
+          <li class="li__img"><img src="img/Screenshot 2025-01-30 at 12.54.57 PM.png" alt="LOCATE Logo" title="Placeholder" width="72" height="72"></li>
+      </ul>
+  </nav>
 </header>
   <h1 id="page-title">Configuration Page</h1>
   <p id="theme-instruction">Toggle for dark mode:</p>
