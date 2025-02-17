@@ -331,9 +331,8 @@
             </div>
           </div>
         </div>
-        <button id="filterContainer">Show Filters</button>
-
-<div id="filterContent" style="display: none;">
+        <!-- Filter content (initially hidden) -->
+<div id="filterContent" style="display: none; margin-bottom: 10px;">
   <label for="type-select" id="type-label">Choose Type:</label>
   <select id="type-select">
     <option id="allTypesButton" value="allType">All Types</option>
@@ -355,6 +354,10 @@
   </select>
 </div>
 
+<!-- Show Filters button -->
+<button id="filterContainer">Show Filters</button>
+
+<!-- Other elements -->
 <button id="locationButton" class="custom-map-control-button">Pan to Current Location</button>
 
 <svg class="marker-pin" xmlns="http://www.w3.org/2000/svg" width="26" height="38" fill="none">
@@ -365,14 +368,13 @@
   document.getElementById("filterContainer").addEventListener("click", function () {
     const filterContent = document.getElementById("filterContent");
     const button = document.getElementById("filterContainer");
-    
+
     if (filterContent.style.display === "none" || filterContent.style.display === "") {
-      filterContent.style.display = "block"; 
-      button.textContent = "Hide Filters"; 
-      button.parentNode.insertBefore(filterContent, button);
+      filterContent.style.display = "block"; // Show filters
+      button.textContent = "Hide Filters"; // Change button text
     } else {
-      filterContent.style.display = "none"; 
-      button.textContent = "Show Filters"; 
+      filterContent.style.display = "none"; // Hide filters
+      button.textContent = "Show Filters"; // Revert button text
     }
   });
         const translationAPIKey = "AIzaSyA90o0-BpfI7NmwgajX_frr51V7O1hhHes";
