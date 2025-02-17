@@ -365,18 +365,18 @@
 </svg>
 
 <script>
-  document.getElementById("filterContainer").addEventListener("click", function () {
-    const filterContent = document.getElementById("filterContent");
-    const button = document.getElementById("filterContainer");
+ document.getElementById("showFilterButton").addEventListener("click", function () {
+          const filterContainer = document.getElementById("filterContainer");
+          const showFilterButton = document.getElementById("showFilterButton");
 
-    if (filterContent.style.display === "none" || filterContent.style.display === "") {
-      filterContent.style.display = "block"; // Show filters
-      button.textContent = "Hide Filters"; // Change button text
-    } else {
-      filterContent.style.display = "none"; // Hide filters
-      button.textContent = "Show Filters"; // Revert button text
-    }
-  });
+          if (filterContainer.style.display === "none" || filterContainer.style.display === "") {
+            filterContainer.style.display = "block"; // Show the filter container
+            showFilterButton.textContent = "Hide Filters"; // Change button text
+          } else {
+            filterContainer.style.display = "none"; // Hide the filter container
+            showFilterButton.textContent = "Show Filters"; // Change button text back
+          }
+        });
         const translationAPIKey = "AIzaSyA90o0-BpfI7NmwgajX_frr51V7O1hhHes";
         async function translateText(text, targetLanguage) {
           if (targetLanguage === "en") {
