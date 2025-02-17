@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event List</title>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <link rel="stylesheet" href="css/program.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="js/favorites.js"></script>
+  <script src="js/program.js"></script>
+</head>
+<body>
+  <header class="header">
+    <section class="header-title-line">                    
+        <button id="menuButton" class="menu-button">
+            <div class="menu-icon"></div>
+        </button>
+    </section>
+    <img src="img/Screenshot 2025-01-30 at 12.54.57 PM-2.png" alt="LOCATE Logo" title="Placeholder" width="80" height="80" class="header__img">
+    <nav class="header__nav" id="nav-menu">
+        <ul class="header__ul center nowrap">
+            <li><p id="nav" class="header__li"><a href="home.html" target="_blank">Home</a></p></li>
+            <li><p id="nav" class="header__li"><a href="favorites.html" target="_blank">Favorites</a></p></li>
+            <li><p id="nav" class="header__li"><a href="events.html" target="_blank">Events</a></p></li>
+
+            <div class="dropdown">
+                <li><p id="nav" class="header__li dropdown-arrow">
+                    <button class="dropdown-button" onclick="toggleDropdown('programs')">Programs</button>
+                </p></li>
+                <div class="dropdown-content" id="programs-dropdown">
+                    <ul class="dropdown__ul">
+                        <li><a href="food.html" target="_blank">Food</a></li>
+                        <li><a href="healthcare.html" target="_blank">Healthcare</a></li>
+                        <li><a href="housing.html" target="_blank">Housing</a></li>
+                        <li><a href="financial.html" target="_blank">Financial</a></li>
+                        <li><a href="other.html" target="_blank">Other</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <li><p id="nav" class="header__li dropdown-arrow">
+                    <button class="dropdown-button" onclick="toggleDropdown('more')">More</button>
+                </p></li>
+                <div class="dropdown-content" id="more-dropdown">
+                    <ul class="dropdown__ul">
+                        <li><a href="add.html" target="_blank">Add Item</a></li>
+                        <li><a href="remove.html" target="_blank">Remove Item</a></li>
+                        <li><a href="feedback.html" target="_blank">Feedback</a></li>
+                        <li><a href="settings.html" target="_blank">Settings</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <li class="li__img"><img src="img/Screenshot 2025-01-30 at 12.54.57 PM.png" alt="LOCATE Logo" title="Placeholder" width="72" height="72"></li>
+        </ul>
+    </nav>
+</header>
+  <h1 class="center title">My Favorites</h1>
+
+  <!-- Favorite Programs Section -->
+  <h2 class="sub-title">Favorite Programs</h2>
+  <div id="program-container">
+    <!-- Template for programs, hidden initially -->
+    <div class="program dropdown" id="program-template" style="display: none;">
+      <ul class="center">
+        <li class="program-item">
+          <img src="" alt="Program Logo" title="Program Logo" width="125" height="125" class="program_img" id="img">
+          <h1 class="program header__li dropdown-arrow program-title" id="title">
+            <button class="dropdown-button" onclick="toggleDropdown('program-details')"></button>
+          </h1>
+          <button class="report-btn center"><a href="remove.html"><img src="img/Screenshot 2025-02-07 at 9.16.04 PM.png" alt="Report Button" height="30" width="30"></a></button>
+          <button class="favorite-btn" id="btn">☆</button>
+          <div class="program dropdown-content" id="program-details-dropdown">
+            <ul class="program dropdown__ul program-description">
+              <li class="description"></li>
+              <li>
+                <button class="learn-more-btn">Learn More</button>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Favorite Events Section -->
+  <h2 class="sub-title">Favorite Events</h2>
+  <div id="event-container">
+    <!-- Template for programs, hidden initially -->
+    <div class="event program dropdown" id="event-template" style="display: none;">
+      <ul class="center">
+        <li class="program-item">
+          <h1 class="program header__li dropdown-arrow program-title">
+            <button class="dropdown-button"></button>
+          </h1>
+          <button class="report-btn center"><a href="remove.html"><img src="img/Screenshot 2025-02-07 at 9.16.04 PM.png" alt="Report Button" height="30" width="30"></a></button>
+          <button class="favorite-btn">☆</button>
+          <div class="event-map program_img" id="img" style="width: 150px; height: 150px;"></div>
+          <div class="program dropdown-content">
+            <ul class="program dropdown__ul program-description" id="program-details-dropdown">
+              <li class="event-date"></li>
+              <li class="event-time"></li>
+              <li class="description"></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Favorite Map Places Section -->
+  <h2 class="sub-title">Favorite Map Places</h2>
+  <div id="map-container"></div>
+
+  <!-- Template for a map place -->
+  <div class="event program dropdown" id="map-template" style="display: none;">
+    <div class="map-place dropdown">
+      <ul class="center">
+        <li class="program-item">
+          <h1 class="map program header__li dropdown-arrow program-title place-title">
+            <button class="dropdown-button"></button>
+          </h1>
+          <button class="report-btn center"><a href="remove.html"><img src="img/Screenshot 2025-02-07 at 9.16.04 PM.png" alt="Report Button" height="30" width="30"></a></button>
+          <button class="favorite-btn">☆</button>
+          <div class="place-map program_img" style="width: 150px; height: 150px;"></div>
+          <div class="map program dropdown-content">
+            <ul class="map program dropdown__ul program-description">
+              <li class="place-type"></li>
+              <li class="place-adress"></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    // Get favorites from localStorage
+    function getFavorites(key) {
+      return JSON.parse(localStorage.getItem(key)) || [];
+    }
+
+    // Save favorites to localStorage
+    function setFavorites(key, items) {
+      localStorage.setItem(key, JSON.stringify(items));
+    }
+
+    // Toggle favorite status
+    function toggleFavorite(key, itemId, itemDetails) {
+      let favorites = getFavorites(key);
+      const index = favorites.findIndex(fav => fav.id === itemId);
+
+      if (index > -1) {
+        // Remove from favorites if already present
+        favorites.splice(index, 1);
+      } else {
+        // Add to favorites
+        favorites.push({ id: itemId, ...itemDetails });
+      }
+
+      // Save updated favorites
+      setFavorites(key, favorites);
+
+      // Refresh UI dynamically
+      fetchAndDisplayFavoriteEvents();
+      fetchAndDisplayFavoritePrograms();
+      fetchAndDisplayFavoritePlaces();
+    }
+
+    // Check if item is in favorites
+    function isFavorite(key, itemId) {
+      const favorites = getFavorites(key);
+      return favorites.some(fav => fav.id === itemId);
+    }
+		function createMap(element, latitude, longitude, title, isDarkMode) {
+      const map = new google.maps.Map(element, {
+        zoom: 15,
+        center: { lat: parseFloat(latitude), lng: parseFloat(longitude) },
+				styles: isDarkMode ? darkModeStyles : null,
+
+      });
+
+      new google.maps.Marker({
+        position: { lat: parseFloat(latitude), lng: parseFloat(longitude) },
+        map: map,
+        title: title,
+      });
+    }
+
+    // Function to display favorite events
+    function fetchAndDisplayFavoriteEvents() {
+      const events = getFavorites('favoriteEvents');
+      const container = document.getElementById('event-container');
+      const template = document.getElementById('event-template');
+
+      container.innerHTML = '';
+
+      if (events.length > 0) {
+        events.forEach(event => {
+          const eventElement = template.cloneNode(true);
+          eventElement.style.display = 'block';
+          eventElement.id = `event-${event.id}`;
+
+          eventElement.querySelector('.dropdown-button').textContent = event.title;
+          eventElement.querySelector('.description').textContent = event.description;
+          eventElement.querySelector('.event-date').textContent = event.date;
+          eventElement.querySelector('.event-time').textContent = event.time;
+					const mapElement = eventElement.querySelector('.event-map');
+          container.appendChild(eventElement);
+          // If location exists, create a map
+          if (event.location && event.location.latitude && event.location.longitude) {
+            createMap(mapElement, event.location.latitude, event.location.longitude, event.title);
+          }
+          // Favorite button setup
+          const favoriteBtn = eventElement.querySelector('.favorite-btn');
+          favoriteBtn.textContent = isFavorite('favoriteEvents', event.id) ? '★' : '☆';
+          favoriteBtn.onclick = () => {
+            toggleFavorite('favoriteEvents', event.id, event);
+            favoriteBtn.textContent = isFavorite('favoriteEvents', event.id) ? '★' : '☆';
+          };
+          const titleEl = eventElement.querySelector('.dropdown-button');
+   
+          const dropdownContent = eventElement.querySelector('.dropdown-content');
+          dropdownContent.style.display = 'none';
+
+          titleEl.onclick = () => {
+            dropdownContent.style.display =
+               dropdownContent.style.display === 'none' ? 'block' : 'none';
+           };
+
+          container.appendChild(eventElement);
+        });
+      } else {
+        container.textContent = 'No favorite events found.';
+      }
+    }
+
+    // Function to display favorite programs
+    function fetchAndDisplayFavoritePrograms() {
+      const programs = getFavorites('favoritePrograms');
+      const container = document.getElementById('program-container');
+      const template = document.getElementById('program-template');
+
+      container.innerHTML = '';
+
+      if (programs.length > 0) {
+        programs.forEach(program => {
+          const programElement = template.cloneNode(true);
+          programElement.style.display = 'block';
+          programElement.id = `program-${program.id}`;
+
+          programElement.querySelector('.dropdown-button').textContent = program.title;
+          programElement.querySelector('.description').textContent = program.description;
+          programElement.querySelector('.program_img').src = program.image || 'default-image.png';
+
+          // Favorite button setup
+          const favoriteBtn = programElement.querySelector('.favorite-btn');
+          favoriteBtn.textContent = isFavorite('favoritePrograms', program.id) ? '★' : '☆';
+          favoriteBtn.onclick = () => {
+            toggleFavorite('favoritePrograms', program.id, program);
+            favoriteBtn.textContent = isFavorite('favoritePrograms', program.id) ? '★' : '☆';
+          };
+					const dropdownButton = programElement.querySelector('.dropdown-button');
+          const dropdownContent = programElement.querySelector('.dropdown-content');
+					dropdownContent.style.display = 'none';
+          dropdownButton.addEventListener('click', () => {
+            dropdownContent.style.display = dropdownContent.style.display === 'none' ? 'block' : 'none';
+          });
+
+          container.appendChild(programElement);
+        });
+      } else {
+        container.textContent = 'No favorite programs found.';
+      }
+    }
+
+    // Function to display favorite 
+    function fetchAndDisplayFavoritePlaces() {
+      const places = getFavorites('favoritePlaces');
+      const container = document.getElementById('map-container');
+      const template = document.getElementById('map-template');
+
+      container.innerHTML = '';
+
+      if (places.length > 0) {
+        places.forEach(place => {
+          const placeElement = template.cloneNode(true);
+          placeElement.style.display = 'block';
+          placeElement.id = `place-${place.id}`;
+
+          const titleElement = placeElement.querySelector('.place-title');
+          titleElement.textContent = place.name || 'Unknown Place';
+
+          placeElement.querySelector('.place-type').textContent = place.types || 'No Type';
+          placeElement.querySelector('.place-adress').textContent = place.formatted_address || 'No Address';
+
+          // Favorite button setup
+          const favoriteBtn = placeElement.querySelector('.favorite-btn');
+          favoriteBtn.textContent = isFavorite('favoritePlaces', place.id) ? '★' : '☆';
+          favoriteBtn.onclick = () => {
+            toggleFavorite('favoritePlaces', place.id, place);
+            favoriteBtn.textContent = isFavorite('favoritePlaces', place.id) ? '★' : '☆';
+          };
+
+          // Dropdown functionality
+        
+
+					const dropdownContent = placeElement.querySelector('.dropdown-content');
+          dropdownContent.style.display = 'none';
+
+					titleElement.onclick = () => {
+             dropdownContent.style.display =
+               dropdownContent.style.display === 'none' ? 'block' : 'none';
+          };
+          const mapElement = placeElement.querySelector('.place-map');
+          container.appendChild(placeElement);
+
+          // If latitude and longitude exist, create the map
+          if (place.latitude && place.longitude) {
+            createMap(mapElement, place.latitude, place.longitude, place.name);
+          } else if (place.placeId) {
+            // Use Google Maps PlacesService to fetch the location by placeId
+            const map = new google.maps.Map(mapElement, {
+              zoom: 15,
+            });
+
+            const service = new google.maps.places.PlacesService(map);
+            service.getDetails({ placeId: place.placeId }, (placeResult, status) => {
+              if (status === google.maps.places.PlacesServiceStatus.OK) {
+                const location = placeResult.geometry.location;
+                map.setCenter(location);
+
+                new google.maps.Marker({
+                  position: location,
+                  map: map,
+                  title: place.name || placeResult.name,
+                });
+              } else {
+                console.error(`Failed to fetch place details for placeId ${place.placeId}:`, status);
+              }
+            });
+          } else {
+            console.warn(`No location data available for place: ${place.name}`);
+          }
+        });
+      } else {
+        container.textContent = 'No favorite places found.';
+      }
+    }
+
+
+    // Fetch favorites on page load
+    window.onload = function () {
+      fetchAndDisplayFavoriteEvents();
+      fetchAndDisplayFavoritePrograms();
+      fetchAndDisplayFavoritePlaces();
+    };
+  </script>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMFHZuxDnyiGGznedA1NgfdSLcGoUoNJ0&callback=initMap&libraries=places&v=weekly" defer></script>
+</body>
+</html>

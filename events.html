@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event List</title>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <link rel="stylesheet" href="css/program.css">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="js/events.js"></script>
+  <script src="js/more.js"></script>
+  <script src="js/program.js"></script>
+</head>
+<body>
+  <header class="header">
+    <section class="header-title-line">                    
+        <button id="menuButton" class="menu-button">
+            <div class="menu-icon"></div>
+        </button>
+    </section>
+    <img src="img/Screenshot 2025-01-30 at 12.54.57 PM-2.png" alt="LOCATE Logo" title="Placeholder" width="80" height="80" class="header__img">
+    <nav class="header__nav" id="nav-menu">
+        <ul class="header__ul center nowrap">
+            <li><p id="nav" class="header__li"><a href="home.html" target="_blank">Home</a></p></li>
+            <li><p id="nav" class="header__li"><a href="favorites.html" target="_blank">Favorites</a></p></li>
+            <li><p id="nav" class="header__li"><a href="events.html" target="_blank">Events</a></p></li>
+
+            <div class="dropdown">
+                <li><p id="nav" class="header__li dropdown-arrow">
+                    <button class="dropdown-button" onclick="toggleDropdown('programs')">Programs</button>
+                </p></li>
+                <div class="dropdown-content" id="programs-dropdown">
+                    <ul class="dropdown__ul">
+                        <li><a href="food.html" target="_blank">Food</a></li>
+                        <li><a href="healthcare.html" target="_blank">Healthcare</a></li>
+                        <li><a href="housing.html" target="_blank">Housing</a></li>
+                        <li><a href="financial.html" target="_blank">Financial</a></li>
+                        <li><a href="other.html" target="_blank">Other</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <li><p id="nav" class="header__li dropdown-arrow">
+                    <button class="dropdown-button" onclick="toggleDropdown('more')">More</button>
+                </p></li>
+                <div class="dropdown-content" id="more-dropdown">
+                    <ul class="dropdown__ul">
+                        <li><a href="add.html" target="_blank">Add Item</a></li>
+                        <li><a href="remove.html" target="_blank">Remove Item</a></li>
+                        <li><a href="feedback.html" target="_blank">Feedback</a></li>
+                        <li><a href="settings.html" target="_blank">Settings</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <li class="li__img"><img src="img/Screenshot 2025-01-30 at 12.54.57 PM.png" alt="LOCATE Logo" title="Placeholder" width="72" height="72"></li>
+        </ul>
+    </nav>
+</header>
+  <h1 class="center title">Upcoming Events</h1>
+  <label for="event-type-filter" id="filter-text">Filter by Type:</label>
+  <select id="event-type-filter" onchange="filterEventsByType()">
+    <option value="">All</option>
+    <option value="Food Drive">Food Drive</option>
+    <option value="Clothing Drive">Clothing Drive</option>
+  </select>
+  <label for="distance-select" id="distance-label">Choose Distance:</label>
+  <select id="distance-select" onchange="filterEventsByDistance()">
+    <option value="2">2 miles</option>
+    <option value="5">5 miles</option>
+    <option value="10">10 miles</option>
+    <option value="15">15 miles</option>
+    <option value="20">20 miles</option>
+    <option value="25" selected>25+ miles</option> <!-- Set as default -->
+  </select>
+  <input type="text" id="search-bar" placeholder="Search events..." oninput="handleSearch()">
+  <script>
+    function handleSearch() {
+      let searchBar = document.getElementById("search-bar");
+      if (searchBar.value.trim() === "") {
+        fetchAndDisplayEvents();
+      }
+    }
+  </script>
+
+<div id="event-container"></div>
+<!-- Template for programs, hidden initially -->
+<div class="event program dropdown" id="event-template" style="display: none;">
+  <ul class="center">
+    <li class="program-item">
+      <h1 class="program header__li dropdown-arrow program-title">
+        <button class="dropdown-button"></button>
+      </h1>
+      <button class="report-btn center"><a href="remove.html"><img src="img/Screenshot 2025-02-07 at 9.16.04 PM.png" alt="Report Button" height="30" width="30"></a></button>
+      <button class="favorite-btn">☆</button>
+      <div class="event-map program_img" id="img" style="width: 150px; height: 150px;"></div>
+      <div class="program dropdown-content">
+        <ul class="program dropdown__ul program-description" id="program-details-dropdown">
+          <li class="description"></li>
+          <p class="event-date"></p>
+          <p class="event-time"></p>
+   
+        </ul>
+      </div>
+    </li>
+  </ul>
+</div>
+            
+
+  <script>
+    let userLocation = null;
+    function filterEventsByDistance() {
+      console.log("Starting filterEventsByDistance function.");
+
+      if (!userLocation) {
+        console.log("User location not available. Requesting location...");
+        getUserLocation(); // Request location if not available
+      
+      }
+
+      const selectedDistance = parseFloat(document.getElementById("distance-select").value);
+      console.log("Selected distance for filtering:", selectedDistance);
+
+      fetchAndDisplayEvents(); // Call fetchAndDisplayEvents directly after getting location
+
+      console.log("Finished filtering events by distance.");
+    }
+
+    function getUserLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            userLocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            };
+          },
+          (error) => {
+            console.error("Error getting location:", error);
+            alert("Location access is needed to filter events by distance.");
+          }
+        );
+      } else {
+        alert("Geolocation is not supported by this browser.");
+      }
+    }
+
+    // Function to calculate distance using Haversine formula
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+      const R = 3958.8; // Earth's radius in miles
+      const toRad = (deg) => (deg * Math.PI) / 180;
+      
+      const dLat = toRad(lat2 - lat1);
+      const dLon = toRad(lon2 - lon1);
+      
+      const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return R * c; // Distance in miles
+    }
+
+
+
+    function createMap(element, latitude, longitude, title) {
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      const map = new google.maps.Map(element, {
+        zoom: 15,
+        center: { lat: parseFloat(latitude), lng: parseFloat(longitude) },
+        styles: savedTheme === 'dark' ? darkModeStyles : null
+      });
+
+      new google.maps.Marker({
+        position: { lat: parseFloat(latitude), lng: parseFloat(longitude) },
+        map: map,
+        title: title,
+      });
+    }
+
+    function fetchAndDisplayEvents(filterType = '') {
+      database.ref('events/').once('value', (snapshot) => {
+        const events = snapshot.val();
+        const container = document.getElementById('event-container');
+        const template = document.getElementById('event-template');
+        const searchQuery = document.getElementById('search-bar').value.toLowerCase();
+        const selectedDistance = parseFloat(document.getElementById('distance-select').value);
+        container.innerHTML = '';
+
+        if (events) {
+          Object.entries(events).forEach(([key, details]) => {
+            const { title, description, date, time, location, status } = details;
+            if (userLocation && location) {
+                const eventDistance = calculateDistance(userLocation.lat, userLocation.lng, location.latitude, location.longitude);
+                console.log(`Distance from your location to ${title}: ${eventDistance} miles`);
+            } else {
+                console.log(`Skipping distance check for "${title}" because userLocation or event location is missing.`);
+            }
+            if (
+                status === 'approved' && 
+                (title.toLowerCase().includes(searchQuery) || description.toLowerCase().includes(searchQuery)) &&
+                (filterType === '' || details.type === filterType) &&
+                (
+                  selectedDistance === 25 || 
+                  (userLocation && location && calculateDistance(userLocation.lat, userLocation.lng, location.latitude, location.longitude) <= selectedDistance)
+                )    
+              ) {
+              const eventElement = template.cloneNode(true);
+              eventElement.style.display = 'block';
+              eventElement.id = `event-${key}`; // Correct id assignment
+
+              eventElement.querySelector('.dropdown-button').textContent = title;
+              eventElement.querySelector('.description').textContent = description;
+              eventElement.querySelector('.event-date').textContent = date;
+              eventElement.querySelector('.event-time').textContent = time;
+
+              const mapElement = eventElement.querySelector('.event-map');
+
+              // If location exists, create a map
+              if (location && location.latitude && location.longitude) {
+                createMap(mapElement, location.latitude, location.longitude, title);
+              }
+
+              // Favorite button setup
+              const favoriteBtn = eventElement.querySelector('.favorite-btn');
+              favoriteBtn.textContent = isFavorite('favoriteEvents', key) ? '★' : '☆';
+              favoriteBtn.onclick = () => {
+                toggleFavorite('favoriteEvents', key, details);
+                favoriteBtn.textContent = isFavorite('favoriteEvents', key) ? '★' : '☆';
+              };
+
+              // Report button setup
+              const reportBtn = eventElement.querySelector('.report-btn');
+              reportBtn.onclick = () => {
+                localStorage.setItem('reportTitle', title);
+                localStorage.setItem('reportType', 'event');
+              };
+
+              // Dropdown functionality
+              const titleEl = eventElement.querySelector('.dropdown-button');
+              const dropdownContent = eventElement.querySelector('.dropdown-content');
+              dropdownContent.style.display = 'none';
+
+              titleEl.onclick = () => {
+                dropdownContent.style.display =
+                  dropdownContent.style.display === 'none' ? 'block' : 'none';
+              };
+
+              container.appendChild(eventElement); // Append once
+            }
+          });
+        } else {
+          container.textContent = 'No events found.';
+        }
+      }).catch((error) => {
+        console.error('Error fetching events:', error);
+      });
+    }
+
+
+
+    function filterEvents() {
+      const filterType = document.getElementById('event-type-filter').value;
+      fetchAndDisplayEvents(filterType);
+    }
+
+    function filterEventsByType() {
+      const filterType = document.getElementById('event-type-filter').value;
+      fetchAndDisplayEvents(filterType);
+    }
+    document.getElementById("search-bar").addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+          event.preventDefault(); // Prevents form submission if inside a form
+          filterEvents();
+      }
+    });
+    window.onload = function () {
+      fetchAndDisplayEvents();
+      const elementsToTranslate = [
+        { id: "event-type-filter", isSelect: true },
+        { id: "search-bar", attribute: "placeholder", text: "Search Events..." },
+        { id: "mainTitle",  text: "Upcoming Events" },
+        { id: "filter-text",  text: "Filter by Type" },
+        { id: "event-container", isDynamic: true }, 
+      ];
+      translatePage(elementsToTranslate);
+    };
+  </script>
+  <script>
+    // Dynamically set the Google Maps API URL with the correct language
+    const script = document.createElement('script');
+    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyCMFHZuxDnyiGGznedA1NgfdSLcGoUoNJ0&callback=initMap&libraries=places,geometry&solution_channel=GMP_QB_neighborhooddiscovery_v3_cADEF&language=${userLanguage}`;
+    script.defer = true;
+
+    // Append the script to the document head
+    document.head.appendChild(script);
+  </script>
+</body>
+</html>

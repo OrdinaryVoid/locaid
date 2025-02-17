@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en" class="map">
+  <head>
+    <title>Neighborhood Discovery</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="css/maps.css">
+    <script src="js/program.js"></script>
+    <script src="js/maps.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/handlebars/4.7.7/handlebars.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <title>Firebase Integration</title>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    </head>
+    <body>
+      <header class="header">
+        <section class="header-title-line">
+            <button id="menuButton" class="menu-button">
+                <div class="menu-icon"></div>
+            </button>
+        </section>
+        <img src="img/Screenshot 2025-01-30 at 12.54.57 PM-2.png" alt="LOCATE Logo" title="Placeholder" width="80" height="80" class="header__img">
+        <nav class="header__nav" id="nav-menu">
+            <ul class="header__ul center nowrap">
+                <li><p id="nav" class="header__li"><a href="home.html" target="_blank">Home</a></p></li>
+                <!--<li><p id="nav" class="header__li"><a href="favorites.html" target="_blank">Favorites</a></p></li>
+                <li><p id="nav" class="header__li"><a href="events.html" target="_blank">Events</a></p></li>-->
+    
+                <div class="dropdown">
+                    <li><p id="nav" class="header__li dropdown-arrow">
+                        <button class="dropdown-button" onclick="toggleDropdown('programs')">Programs</button>
+                    </p></li>
+                    <div class="dropdown-content" id="programs-dropdown">
+                        <ul class="dropdown__ul">
+                            <li><a href="food.html" target="_blank">Food</a></li>
+                            <li><a href="healthcare.html" target="_blank">Healthcare</a></li>
+                            <li><a href="housing.html" target="_blank">Housing</a></li>
+                            <li><a href="financial.html" target="_blank">Financial</a></li>
+                            <li><a href="other.html" target="_blank">Other</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="dropdown">
+                  <li><p id="nav" class="header__li">
+                      <button class="dropdown-button" onclick="toggleDropdown('more')">Add Item</button>
+                  </p></li>
+                </div>
+    <!--
+                <div class="dropdown">
+                    <li><p id="nav" class="header__li dropdown-arrow">
+                        <button class="dropdown-button" onclick="toggleDropdown('more')">More</button>
+                    </p></li>
+                    <div class="dropdown-content" id="more-dropdown">
+                        <ul class="dropdown__ul">
+                            <li><a href="add.html" target="_blank">Add Item</a></li>
+                            <li><a href="remove.html" target="_blank">Remove Item</a></li>
+                            <li><a href="feedback.html" target="_blank">Feedback</a></li>
+                            <li><a href="settings.html" target="_blank">Settings</a></li>
+                        </ul>
+                    </div>
+                </div>-->
+    
+                <li class="li__img"><img src="img/Screenshot 2025-01-30 at 12.54.57 PM.png" alt="LOCATE Logo" title="Placeholder" width="72" height="72"></li>
+            </ul>
+        </nav>
+    </header>
+    <script>
+    // Your web app's Firebase configuration
+      const userLanguage = localStorage.getItem("language") || "en"; 
+      const firebaseConfig = {
+        apiKey: "AIzaSyDonvH2K7wGLRC0-JKQfGnONIR3Ci60TbI",
+        authDomain: "nedc-ff079.firebaseapp.com",
+        databaseURL: "https://nedc-ff079-default-rtdb.firebaseio.com",
+        projectId: "nedc-ff079",
+        storageBucket: "nedc-ff079.firebasestorage.app",
+        messagingSenderId: "716378802400",
+        appId: "1:716378802400:web:c2471dc10b526976096885",
+        measurementId: "G-GRX6SZTYMR"
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+			const locations = []
+      // Get a reference to the database service
+      const database = firebase.database();
+			function fetchAllWaterFountains() {
+        database.ref('locations/waterFountains').once('value', (snapshot) => {
+          const data = snapshot.val();
+          if (data) {
+            locations.length = 0; // Clear the existing locations array
+            Object.entries(data).forEach(([id, details]) => {
+              // Check if the status is 'approved'
+              if (details.status === 'approved') {
+                // Only add the fountain if it is approved
+                locations.push({ lat: details.latitude, lng: details.longitude });
+              } 
+            });
+          } else {
+            console.log("No water fountains found in the database.");
+          }
+        }).catch((error) => {
+          console.error("Error fetching water fountain data: ", error);
+        });
+      }
+      // Fetch and log all places from the 'locations/places' node
+      function fetchAllPlaces() {
+        return new Promise((resolve, reject) => {
+          database.ref('locations/places').once('value', (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+              Object.entries(data).forEach(([id, details]) => {
+                // Check if the status is 'approved'
+                if (details.status === 'approved') {
+                  // Only add the place if it is approved
+                  CONFIGURATION.pois.push({ placeId: details.placeID });
+                }
+              });
+              resolve(); // Resolve after successfully fetching and updating
+            } else {
+              console.log("No places found in the database.");
+              resolve(); // Resolve even if no data found
+            }
+          }).catch((error) => {
+            console.error("Error fetching place data:", error);
+            reject(error); // Reject on error
+          });
+        });
+      }
+
+      // Function to handle form submission
+    </script>
+    <script>
+      const CONFIGURATION = {
+        "capabilities": {"search":true,"distances":false,"directions":false,"contacts":true,"atmospheres":true,"thumbnails":true},
+        "pois": [
+        ],
+        "mapRadius": 10000000,
+        "mapOptions": {"center":{"lat":37.9357576,"lng":-122.3477486},"fullscreenControl":true,"mapTypeControl":true,"streetViewControl":false,"zoom":16,"zoomControl":true,"maxZoom":20,"mapId":""},
+        "mapsApiKey": "AIzaSyCMFHZuxDnyiGGznedA1NgfdSLcGoUoNJ0"
+      };
+
+      function initMap() {
+      	fetchAllWaterFountains();
+				fetchAllPlaces()
+          .then(() => {
+            console.log("All places fetched. Initializing NeighborhoodDiscovery...");
+            new NeighborhoodDiscovery(CONFIGURATION);
+          })
+          .catch((error) => {
+            console.error("Error initializing map:", error);
+          });
+      	}
+    </script>
+    <script id="nd-place-results-tmpl" type="text/x-handlebars-template">
+      {{#each places}}
+        <li class="place-result">
+          <div class="text">
+            <button class="name">{{name}}</button>
+            <div class="info">
+              {{#if rating}}
+                <span>{{rating}}</span>
+                <img src="https://fonts.gstatic.com/s/i/googlematerialicons/star/v15/24px.svg" alt="rating" class="star-icon"/>
+              {{/if}}
+              {{#if numReviews}}
+                <span>&nbsp;({{numReviews}})</span>
+              {{/if}}
+              {{#if priceLevel}}
+                &#183;&nbsp;<span>{{#each dollarSigns}}${{/each}}&nbsp;</span>
+              {{/if}}
+            </div>
+            <div class="info">{{type}}</div>
+          </div>
+          <button class="photo" style="background-image:url({{photos.0.urlSmall}})" aria-label="show photo in viewer"></button>
+        </li>
+      {{/each}}
+    </script>
+    <script id="nd-place-details-tmpl" type="text/x-handlebars-template">
+      <div class="navbar">
+        <button class="back-button">
+          <img class="icon" src="https://fonts.gstatic.com/s/i/googlematerialicons/arrow_back/v11/24px.svg" alt="back"/>
+          Back
+        </button>
+      </div>
+      <header>
+        <h2>{{name}}</h2>
+        <div class="info">
+          {{#if rating}}
+            <span class="star-rating-numeric">{{rating}}</span>
+            <span>
+              {{#each fullStarIcons}}
+                <img src="https://fonts.gstatic.com/s/i/googlematerialicons/star/v15/24px.svg" alt="full star" class="star-icon"/>
+              {{/each}}
+              {{#each halfStarIcons}}
+                <img src="https://fonts.gstatic.com/s/i/googlematerialicons/star_half/v17/24px.svg" alt="half star" class="star-icon"/>
+              {{/each}}
+              {{#each emptyStarIcons}}
+                <img src="https://fonts.gstatic.com/s/i/googlematerialicons/star_outline/v9/24px.svg" alt="empty star" class="star-icon"/>
+              {{/each}}
+            </span>
+          {{/if}}
+          {{#if numReviews}}
+            <a href="{{url}}" target="_blank">{{numReviews}} reviews</a>
+          {{else}}
+            <a href="{{url}}" target="_blank">See on Google Maps</a>
+          {{/if}}
+          {{#if priceLevel}}
+            &#183;
+            <span class="price-dollars">
+              {{#each dollarSigns}}${{/each}}
+            </span>
+          {{/if}}
+        </div>
+        {{#if type}}
+          <div class="info">{{type}}</div>
+        {{/if}}
+      </header>
+      <div class="section">
+        {{#if address}}
+          <div class="contact">
+            <img src="https://fonts.gstatic.com/s/i/googlematerialicons/place/v10/24px.svg" alt="Address" class="icon"/>
+            <div class="text">
+              {{address}}
+            </div>
+          </div>
+        {{/if}}
+        {{#if website}}
+          <div class="contact">
+            <img src="https://fonts.gstatic.com/s/i/googlematerialicons/public/v10/24px.svg" alt="Website" class="icon"/>
+            <div class="text">
+              <a href="{{website}}" target="_blank">{{websiteDomain}}</a>
+            </div>
+          </div>
+        {{/if}}
+        {{#if phoneNumber}}
+          <div class="contact">
+            <img src="https://fonts.gstatic.com/s/i/googlematerialicons/phone/v10/24px.svg" alt="Phone number" class="icon"/>
+            <div class="text">
+              {{phoneNumber}}
+            </div>
+          </div>
+        {{/if}}
+        {{#if openingHours}}
+          <div class="contact">
+            <img src="https://fonts.gstatic.com/s/i/googlematerialicons/schedule/v12/24px.svg" alt="Opening hours" class="icon"/>
+            <div class="text">
+              {{#each openingHours}}
+                <div>
+                  <span class="weekday">{{days}}</span>
+                  <span class="hours">{{hours}}</span>
+                </div>
+              {{/each}}
+            </div>
+          </div>
+        {{/if}}
+      </div>
+      {{#if photos}}
+        <div class="photos section">
+          {{#each photos}}
+            <button class="photo" style="background-image:url({{urlSmall}})" aria-label="show photo in viewer"></button>
+          {{/each}}
+        </div>
+      {{/if}}
+      {{#if reviews}}
+        <div class="reviews section">
+          <p class="attribution">Reviews by Google users</p>
+          {{#each reviews}}
+            <div class="review">
+              <a class="reviewer-identity" href="{{author_url}}" target="_blank">
+                <div class="reviewer-avatar" style="background-image:url({{profile_photo_url}})"></div>
+                <div class="reviewer-name">{{author_name}}</div>
+              </a>
+              <div class="rating info">
+                <span>
+                  {{#each fullStarIcons}}
+                    <img src="https://fonts.gstatic.com/s/i/googlematerialicons/star/v15/24px.svg" alt="full star" class="star-icon"/>
+                  {{/each}}
+                  {{#each halfStarIcons}}
+                    <img src="https://fonts.gstatic.com/s/i/googlematerialicons/star_half/v17/24px.svg" alt="half star" class="star-icon"/>
+                  {{/each}}
+                  {{#each emptyStarIcons}}
+                    <img src="https://fonts.gstatic.com/s/i/googlematerialicons/star_outline/v9/24px.svg" alt="empty star" class="star-icon"/>
+                  {{/each}}
+                </span>
+                <span class="review-time">{{relative_time_description}}</span>
+              </div>
+              <div class="info">{{text}}</div>
+            </div>
+          {{/each}}
+        </div>
+      {{/if}}
+      {{#if html_attributions}}
+        <div class="section">
+          {{#each html_attributions}}
+            <p class="attribution">{{{this}}}</p>
+          {{/each}}
+        </div>
+      {{/if}}
+    </script>
+
+    <div class="neighborhood-discovery">
+      <div class="places-panel panel no-scroll">
+        <header class="navbar">
+          <div class="search-input">
+            <input class="place-search-input" placeholder="Search nearby places">
+            <button class="place-search-button">
+          </div>
+            </button>
+        </header>
+        <div class="results">
+          <ul class="place-results-list"></ul>
+        </div>
+        <button class="show-more-button sticky">
+          <span>Show More</span>
+          <img class="right" src="https://fonts.gstatic.com/s/i/googlematerialicons/expand_more/v11/24px.svg" alt="expand"/>
+        </button>
+      </div>
+      <div class="details-panel panel"></div>
+      <div class="map"></div>
+      <div class="photo-modal">
+        <img alt="place photo"/>
+        <div>
+          <button class="mapfavorite-btn">☆</button>
+          <button class="report-btn">x</button>
+          <button id="back-button" class="back-button">
+            <img class="icon" src="https://fonts.gstatic.com/s/i/googlematerialicons/arrow_back/v11/24px.svg" alt="back"/>
+          </button>
+          <div class="photo-text">
+            <div class="photo-place"></div>
+            <div class="photo-attrs">Photo by <span></span></div>
+          </div>
+        </div>
+      </div>
+      /div>
+      <button id="showFiltersButton">Show Filters</button>
+<div id="filterContainer" style="display: none;">
+    <label for="type-select" id="type-label">Choose Type:</label>
+    <select id="type-select">
+        <option id="allTypesButton" value="allType">All Types</option>
+        <option id="foodBankButton" value="Foodbanks">Food Bank</option>
+        <option id="internetButton" value="Internetspot">Internet Spots</option>
+        <option id="housingButton" value="Housing">Housing</option>
+        <option id="financialButton" value="Financial">Financial</option>
+        <option id="waterFountainButton" value="water_fountain">Water Fountain</option>
+        <option id="openNowButton" value="openNow">Open Now</option>
+    </select>
+    <label for="distance-select" id="distance-label">Choose Distance:</label>
+    <select id="distance-select">
+        <option value="2">2 miles</option>
+        <option value="5">5 miles</option>
+        <option value="10">10 miles</option>
+        <option value="15">15 miles</option>
+        <option value="20">20 miles</option>
+        <option value="25">25+ miles</option>
+    </select>
+</div>
+
+<script>
+    document.getElementById("showFiltersButton").addEventListener("click", function() {
+        var filterContainer = document.getElementById("filterContainer");
+        if (filterContainer.style.display === "none") {
+            filterContainer.style.display = "block";
+        } else {
+            filterContainer.style.display = "none";
+        }
+    });
+</script>
+      <button id="locationButton" class="custom-map-control-button">Pan to Current Location</button>
+      <svg class="marker-pin" xmlns="http://www.w3.org/2000/svg" width="26" height="38" fill="none">
+        <path d="M13 0C5.817 0 0 5.93 0 13.267c0 7.862 5.59 10.81 9.555 17.624C12.09 35.248 11.342 38 13 38c1.723 0 .975-2.817 3.445-7.043C20.085 24.503 26 21.162 26 13.267 26 5.93 20.183 0 13 0Z"/>
+      </svg>
+    </div>
+    <script>
+      const translationAPIKey = "AIzaSyA90o0-BpfI7NmwgajX_frr51V7O1hhHes";
+      async function translateText(text, targetLanguage) {
+        if (targetLanguage === "en") {
+          return text;
+        }
+        try {
+          const response = await fetch(
+            `https://translation.googleapis.com/language/translate/v2?key=${translationAPIKey}`,
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                q: text,
+                target: targetLanguage,
+              }),
+            }
+          );
+          const data = await response.json();
+          return data.data.translations[0].translatedText;
+        } catch (error) {
+          console.error("Error translating text:", error);
+          return text; // Fallback to original text
+        }
+      }
+
+      // Function to translate elements dynamically
+      // Function to translate elements dynamically for both events and programs
+      async function translatePage(elementsToTranslate) {
+          if (userLanguage === "en") {
+            console.log("Page is in English; skipping translation.");
+            return;
+          }
+        
+          for (const el of elementsToTranslate) {
+            if (el.isSelect) {
+              // Handle <select> element options
+              const selectElement = document.getElementById(el.id);
+              if (selectElement) {
+                for (const option of selectElement.options) {
+                  const translatedText = await translateText(option.text, userLanguage);
+                  option.text = translatedText;
+                }
+              }else if (el.isButton) {
+                // Handle <button> elements (for translating button text)
+                const buttonElement = document.getElementById(el.id);
+                if (buttonElement) {
+                  const translatedText = await translateText(buttonElement.textContent, userLanguage);
+                  buttonElement.textContent = translatedText;
+                }
+              }
+            } else if (el.attribute) {
+              // Handle element attributes (e.g., placeholder)
+              const element = document.getElementById(el.id);
+              if (element) {
+                const translatedText = await translateText(el.text, userLanguage);
+                element.setAttribute(el.attribute, translatedText);
+              }
+            } else if (el.isDynamic) {
+              // Handle dynamically generated content (for both events and programs)
+              const container = document.getElementById(el.id);
+              if (container) {
+                const items = container.querySelectorAll(".event, .program, .map-place"); // Target both types
+                
+                for (const item of items) {
+                  const titleEl = item.querySelector(".dropdown-button");
+                  const descriptionEl = item.querySelector(".description");
+                  const learnMoreBtn = item.querySelector(".learn-more-btn");
+                  const typeEl = item.querySelector(".place-type");
+                  const addressEl = item.querySelector(".place-adress");
+        
+                  if (titleEl) {
+                    const translatedTitle = await translateText(titleEl.textContent, userLanguage);
+                    titleEl.textContent = translatedTitle;
+                  }
+                  if (descriptionEl) {
+                    const translatedDescription = await translateText(descriptionEl.textContent, userLanguage);
+                    descriptionEl.textContent = translatedDescription;
+                  }
+                  if (learnMoreBtn) {
+                    const translatedBtnText = await translateText(learnMoreBtn.textContent, userLanguage);
+                    learnMoreBtn.textContent = translatedBtnText;
+                  }
+                  if (typeEl) {
+                      const translatedType = await translateText(typeEl.textContent, userLanguage);
+                      typeEl.textContent = translatedType;
+                  }
+                  if (addressEl) {
+                      const translatedAddress = await translateText(addressEl.textContent, userLanguage);
+                      addressEl.textContent = translatedAddress;
+                  }
+                }
+              }
+            } else {
+              // Handle regular text content
+              const element = document.getElementById(el.id);
+              if (element) {
+                const translatedText = await translateText(element.textContent, userLanguage);
+                element.textContent = translatedText;
+              }
+            }
+          }
+        }
+    </script>
+    <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
+  </script>
+  <script>
+    window.onload = function () {
+      const elementsToTranslate = [
+        { id: "allTypesButton", isButton: true },
+        { id: "waterFountainButton", isButton: true },
+        { id: "back-button", isButton: true },
+      ];
+      translatePage(elementsToTranslate);
+    };
+    // Get language from localStorage or default to "en"
+     
+
+    // Dynamically set the Google Maps API URL with the correct language
+    const script = document.createElement('script');
+    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyCMFHZuxDnyiGGznedA1NgfdSLcGoUoNJ0&callback=initMap&libraries=places,geometry&solution_channel=GMP_QB_neighborhooddiscovery_v3_cADEF&language=${userLanguage}`;
+    script.defer = true;
+
+    // Append the script to the document head
+    document.head.appendChild(script);
+    
+  </script>  
+  </body>
+</html>

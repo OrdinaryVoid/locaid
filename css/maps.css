@@ -1,0 +1,610 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+
+/* RESET */
+*, 
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+input,
+button, 
+textarea {
+    font: inherit;
+}
+
+/* VARIABLES */
+
+:root {
+  /*FONTS*/
+  --FF: "Nunito", sans-serif;
+  --FS: clamp(1rem, 2.2vh, 1.5rem);
+  --FS-NAV: clamp(1.75rem, 4vh, 2.5rem);
+  --FS-TITLE: clamp(1.5rem, 5vh, 2rem);
+  --MOBILE-FS-XL: clamp(4rem, 6vh, 5rem);
+  --FS-XL: clamp(5rem, 8vh, 6rem);
+
+  /*COLORS*/
+  --BGCOLOR-FADE: rgb(252, 220, 160);
+  --BGCOLOR: white;
+  --BGIMAGE: linear-gradient(to bottom, var(--BGCOLOR), var(--BGCOLOR-FADE));
+  --BODY-BGCOLOR: #FFF; 
+  --BORDER-COLOR: #000;
+  --BUTTON-COLOR: #FFF;
+  --FONT-COLOR: #000;
+  --HEADER-BGCOLOR: #FFF;
+  --HEADER-COLOR: #FFF;
+  --HERO-BGCOLOR: rgba(51, 178, 51, 0.75);
+  --HERO-COLOR: #FFF;
+  --HIGHLIGHT-COLOR: rgb(51, 178, 51);
+  --LINK-ACTIVE: orange;
+  --LINK-COLOR: #000;
+  --LINK-HOVER: #f5f5f5;
+  --NAV-BGCOLOR: #FFF;
+
+  /*BORDERS*/
+  --BORDERS: 1px solid var(--BORDER-COLOR);
+  --BORDER-RADIUS: 15px;
+
+  /* STANDARD PADDING */
+  --PADDING-TB: 0.25em;
+  --PADDING-SIDE: 2.5%;
+
+  /* STANDARD MARGIN */
+  --MARGIN: clamp(1em, 2.5vh, 1.5em) 0;
+
+  /* GAP */
+  --GAP: clamp(1rem, 5vw, 2rem);
+}
+
+/* UTILITY CLASSES */
+.offscreen {
+  position: absolute;
+  left: -100000px;
+}
+
+.display_none {
+  display: none;
+}
+.nowrap {
+  white-space: nowrap;
+}
+
+.center {
+  text-align: center;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--FF);
+  font-size: var(--FS);
+  background-color: var(--BGCOLOR);
+}
+
+.header {
+  position: static;
+  top: 0;
+  z-index: 1;
+  border-bottom: var(--BORDERS);
+}
+
+.header__img {
+  display: none;
+}
+
+.header__nav {
+  background-color: var(--NAV-BGCOLOR);
+  font-weight: bold;
+}
+
+.header__ul {
+  font-size: var(--FS-NAV);
+  padding: var(--PADDING-TB) var(--PADDING-SIDE);
+  list-style-type: none;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: var(--GAP);
+}
+
+.header-title-line {
+  display: none;
+}
+
+.dropdown-arrow::after {
+  font-family: FontAwesome;
+  font-size: 1.5rem;
+  content: "\f107";
+  padding-left: 8px;
+}
+
+/* Dropdown button styling */
+.dropdown-button, .header__li a {
+  background-color: var(--BGCOLOR); 
+  text-decoration: none;
+  color: var(--FONT-COLOR); 
+  border: none; 
+  font-size: var(--FS-NAV); 
+  cursor: pointer; 
+}
+
+.dropdown-button:hover, .header__li a:hover {
+  background-color: var(--LINK-HOVER); 
+}
+
+.dropdown-content {
+  display: none; 
+  font-size: var(--FS);
+  position: absolute;
+  background-color: var(--BGCOLOR); 
+  min-width: 135px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); 
+  z-index: 1; 
+}
+
+.dropdown-content.visible {
+  display: block;
+}
+
+.dropdown-content ul {
+  list-style: none; 
+  padding: 0; 
+}
+
+.dropdown-content ul li {
+  padding: 4px 2px; 
+  text-align: left;
+}
+
+.dropdown-content ul li:hover {
+  background-color: gray; 
+}
+
+.dropdown-content ul li a {
+  text-decoration: none; 
+  color: var(--FONT-COLOR); 
+  display: block; 
+  padding: 4px 8px; 
+}
+
+.dropdown-content ul li a:hover {
+  background-color: #ddd;
+}
+
+:root {
+  --bg-color: #fff;
+  --text-color: #000000;
+}
+
+[data-theme="dark"] {
+  --bg-color: #000000;
+  --text-color: #ffffff;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+.flag-icon {
+        width: 32px;
+        height: 32px;
+      }
+.neighborhood-discovery {
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+
+.neighborhood-discovery a {
+  color: #4285f4;
+  text-decoration: none;
+}
+
+.neighborhood-discovery button {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  font-size: inherit;
+  padding: 0;
+}
+
+.neighborhood-discovery .info {
+  color: #555;
+  font-size: 0.9em;
+  margin-top: 0.3em;
+}
+
+.neighborhood-discovery .panel {
+  background: var(--bg-color);
+  bottom: 0;
+  box-sizing: border-box;
+  left: 0;
+  overflow-y: auto;
+  position: absolute;
+  top: 0;
+  width: 20em;
+}
+
+.neighborhood-discovery .panel.no-scroll {
+  overflow-y: hidden;
+}
+
+.neighborhood-discovery .photo {
+  background-color: #dadce0;
+  background-position: center;
+  background-size: cover;
+  border-radius: 0.3em;
+  cursor: pointer;
+}
+
+.neighborhood-discovery .navbar {
+  background: var(--bg-color);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.neighborhood-discovery .right {
+  float: right;
+}
+
+.neighborhood-discovery .star-icon {
+  filter: invert(88%) sepia(60%) saturate(2073%) hue-rotate(318deg) brightness(93%) contrast(104%);
+  height: 1.2em;
+  margin-right: -0.3em;
+  margin-top: -0.08em;
+  vertical-align: top;
+  width: 1.2em;
+}
+
+.neighborhood-discovery .star-icon:last-child {
+  margin-right: 0.2em;
+}
+
+.neighborhood-discovery .map {
+  bottom: 0;
+  left: 20em;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+@media only screen and (max-width: 640px) {
+  .neighborhood-discovery .panel {
+    right: 0;
+    top: 50%;
+    width: unset;
+  }
+
+  .neighborhood-discovery .map {
+    bottom: 50%;
+    left: 0;
+  }
+}
+
+/* --------------------------- PLACES PANEL --------------------------- */
+
+.neighborhood-discovery .places-panel {
+  box-shadow: 0 0 10px rgb(60 64 67 / 28%);
+  z-index: 1;
+}
+
+.neighborhood-discovery .places-panel header {
+  padding: 0.5em;
+}
+
+.neighborhood-discovery .search-input input {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0.3em;
+  box-sizing: border-box;
+  font-size: 1em;
+  height: 2.2em;
+  padding: 0 2.5em 0 1em;
+  width: 100%;
+}
+
+.neighborhood-discovery .search-input button {
+  position: absolute;
+  right: 0.8em;
+  top: 0.8em;
+}
+
+.neighborhood-discovery .show-more-button {
+  bottom: 0.5em;
+  display: none;
+  left: 28%;
+  line-height: 1.5em;
+  padding: 0.6em;
+  position: relative;
+  width: 44%;
+}
+
+.neighborhood-discovery .show-more-button.sticky {
+  background: var(--bg-color);
+  border-radius: 1.5em;
+  box-shadow: 0 4px 10px rgb(60 64 67 / 28%);
+  position: sticky;
+  z-index: 2;
+}
+
+.neighborhood-discovery .show-more-button:disabled {
+  opacity: 0.5;
+}
+
+.neighborhood-discovery .place-results-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.neighborhood-discovery .place-result {
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  display: flex;
+  padding: 0.8em;
+}
+
+.neighborhood-discovery .place-result .text {
+  flex-grow: 1;
+}
+
+.neighborhood-discovery .place-result .name {
+  font-size: 1em;
+  font-weight: 500;
+  text-align: left;
+}
+
+.neighborhood-discovery .place-result .photo {
+  flex: 0 0 4em;
+  height: 4em;
+  margin-left: 0.8em;
+}
+
+/* -------------------------- DETAILS PANEL --------------------------- */
+
+.neighborhood-discovery .details-panel {
+  display: none;
+  z-index: 20;
+}
+
+.neighborhood-discovery .details-panel .back-button {
+  color: #4285f4;
+  padding: 0.9em;
+}
+
+.neighborhood-discovery .details-panel .back-button .icon {
+  /* Match link color #4285f4 */
+  filter: invert(47%) sepia(71%) saturate(2372%) hue-rotate(200deg) brightness(97%) contrast(98%);
+  height: 1.2em;
+  width: 1.2em;
+  vertical-align: bottom;
+}
+
+.neighborhood-discovery .details-panel header {
+  padding: 0.9em;
+}
+
+.neighborhood-discovery .details-panel h2 {
+  font-size: 1.4em;
+  font-weight: 400;
+  margin: 0;
+}
+
+.neighborhood-discovery .details-panel .section {
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 0.9em;
+}
+
+.neighborhood-discovery .details-panel .contact {
+  align-items: center;
+  display: flex;
+  font-size: 0.9em;
+  margin: 0.8em 0;
+}
+
+.neighborhood-discovery .details-panel .contact .icon {
+  width: 1.5em;
+  height: 1.5em;
+}
+
+.neighborhood-discovery .details-panel .contact .text {
+  margin-left: 1em;
+}
+
+.neighborhood-discovery .details-panel .contact .weekday {
+  display: inline-block;
+  width: 5em;
+}
+
+.neighborhood-discovery .details-panel .photos {
+  text-align: center;
+}
+
+.neighborhood-discovery .details-panel .photo {
+  display: inline-block;
+  height: 5.5em;
+  width: 5.5em;
+}
+
+.neighborhood-discovery .details-panel .review {
+  margin-top: 1.2em;
+}
+
+.neighborhood-discovery .details-panel .review .reviewer-avatar {
+  background-repeat: no-repeat;
+  background-size: cover;
+  float: left;
+  height: 1.8em;
+  margin-right: 0.8em;
+  width: 1.8em;
+}
+
+.neighborhood-discovery .details-panel .review .reviewer-name {
+  color: #202124;
+  font-weight: 500;
+  line-height: 1.8em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.neighborhood-discovery .details-panel .review .rating {
+  margin: 0.5em 0;
+}
+
+.neighborhood-discovery .details-panel .attribution {
+  color: #777;
+  margin: 0;
+  font-size: 0.8em;
+  font-style: italic;
+}
+
+/* --------------------------- PHOTO MODAL ---------------------------- */
+
+.neighborhood-discovery .photo-modal {
+  background: rgba(0, 0, 0, 0.8);
+  display: none;
+  height: 100%;
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+}
+
+.neighborhood-discovery .photo-modal > img {
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  max-height: 100%;
+  max-width: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.neighborhood-discovery .photo-modal > div {
+  border-radius: 0.4em;
+  color: white;
+  background: rgba(0, 0, 0, 0.6);
+  margin: 1em;
+  padding: 0.9em;
+  position: absolute;
+}
+
+.neighborhood-discovery .photo-modal .back-button .icon {
+  filter: brightness(0) invert(1);
+  margin: 0.4em 0.6em 0 0;
+}
+
+.neighborhood-discovery .photo-modal .photo-text {
+  float: right;
+}
+
+.neighborhood-discovery .photo-modal .photo-attrs {
+  font-size: 0.8em;
+  margin-top: 0.3em;
+}
+.custom-map-control-button {
+  background-color: var(--bg-color) !important; /* Force the background color */
+  color: var(--text-color) !important; /* Force text color */
+  border: none !important; /* Force removal of border */
+  padding: 10px 20px !important;
+  margin: 10px !important;
+  height: 40px !important;
+  font-size: 16px !important;
+  cursor: pointer !important;
+  border-radius: 5px !important; /* Optional: adds rounded corners */
+}
+
+[data-theme="dark"].custom-map-control-button {
+  background-color: black !important; /* Force the background color */
+  color: white !important;
+}
+.custom-map-control-button:hover {
+  background: rgb(235, 235, 235);
+}
+#filterContainer {
+  display: flex; /* Use flexbox layout */
+  flex-direction: column; /* Arrange buttons in a row (default) */
+  justify-content: space-around; /* Distribute space evenly */
+  align-items: center; /* Align buttons vertically in the container */
+  gap: 15px; /* Add spacing between buttons */
+  padding: 10px; /* Add padding around the container */
+  position: absolute; /* Allow positioning relative to the map or page */
+  bottom: 120px; /* Adjust vertical position */
+  right: 100px; /* Adjust horizontal position */
+  background-color: var(--bg-color); /* Optional background */
+  border-radius: 8px; /* Rounded corners for the container */
+  z-index: 1000; /* Ensure it appears above the map */
+}
+
+.filter-button {
+  margin: 0; /* Reset default margins */
+  padding: 10px 20px; /* Adjust padding inside the button */
+  background-color: var(--bg-color); /* Default background color */
+  color: var(--text-color); /* Default text color */
+  border: 1px solid var(--bg-color); /* Optional border */
+  border-radius: 5px; /* Rounded corners for buttons */
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s; /* Smooth hover effect */
+}
+[data-theme="dark"].filter-button {
+ background-color: #000;
+ color: #000 ;
+}
+.filter-button:hover {
+  background-color: #007bff; /* Hover background color */
+  color: #fff; /* Hover text color */
+}
+
+.filter-button.active {
+  background-color: #007bff; /* Active background color */
+  color: #fff; /* Active text color */
+}
+
+[Data-theme="dark"].filter-button.active {
+  background-color: #000; /* Active background color */
+  color: #000;
+}
+
+.filter-button:first-child {
+  margin-left: 0; /* No left margin for the first button */
+}
+
+.filter-button:last-child {
+  margin-right: 0; /* No right margin for the last button */
+}
+
+.favorite-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: gold;
+  z-index: 10; /* Ensure it appears above other elements */
+}
+
+.favorite-button:hover {
+  transform: scale(1.2);
+}
+
+.dropdown-arrow::after {
+  font-family: FontAwesome;
+  font-size: 1.5rem;
+  content: "\f107";
+  padding-left: 8px;
+}
