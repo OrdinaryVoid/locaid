@@ -549,7 +549,7 @@ html, body {
   z-index: 1000; /* Ensure it appears above the map */
 }
 
-#showFilterButton {
+.filter-button {
   margin: 0; /* Reset default margins */
   padding: 10px 20px; /* Adjust padding inside the button */
   background-color: var(--bg-color); /* Default background color */
@@ -559,30 +559,30 @@ html, body {
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s; /* Smooth hover effect */
 }
-[data-theme="dark"]#showFilterButton {
+[data-theme="dark"].filter-button {
  background-color: #000;
  color: #000 ;
 }
-#showFilterButton:hover {
+.filter-button:hover {
   background-color: #007bff; /* Hover background color */
   color: #fff; /* Hover text color */
 }
 
-#showFilterButton.active {
+.filter-button.active {
   background-color: #007bff; /* Active background color */
   color: #fff; /* Active text color */
 }
 
-[Data-theme="dark"]#showFilterButton.active {
+[Data-theme="dark"].filter-button.active {
   background-color: #000; /* Active background color */
   color: #000;
 }
 
-#showFilterButton:first-child {
+.filter-button:first-child {
   margin-left: 0; /* No left margin for the first button */
 }
 
-#showFilterButton:last-child {
+.filter-button:last-child {
   margin-right: 0; /* No right margin for the last button */
 }
 
