@@ -542,7 +542,7 @@ html, body {
   gap: 15px; /* Add spacing between buttons */
   padding: 10px; /* Add padding around the container */
   position: absolute; /* Allow positioning relative to the map or page */
-  bottom: 120px; /* Adjust vertical position */
+  bottom: 150px; /* Adjust vertical position */
   right: 100px; /* Adjust horizontal position */
   background-color: var(--bg-color); /* Optional background */
   border-radius: 8px; /* Rounded corners for the container */
