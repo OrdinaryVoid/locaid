@@ -549,6 +549,23 @@ html, body {
   z-index: 1000; /* Ensure it appears above the map */
 }
 
+#showFilterButton {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  #showFilterButton:hover {
+    background-color: #0056b3;
+  }
+
 .filter-button {
   margin: 0; /* Reset default margins */
   padding: 10px 20px; /* Adjust padding inside the button */
