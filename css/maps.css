@@ -551,8 +551,8 @@ html, body {
 
 #showFilterButton {
     position: absolute;
-    top: 10px;
-    left: 10px;
+    bottom: 110px;
+    right: 100px;
     z-index: 1000;
     background-color: #007bff;
     color: white;
