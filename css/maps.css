@@ -28,7 +28,7 @@ textarea {
 
   /*COLORS*/
   --BGCOLOR-FADE: rgb(252, 220, 160);
-  --BGCOLOR: white;
+  --bg-color: #cce2cb;
   --BGIMAGE: linear-gradient(to bottom, var(--BGCOLOR), var(--BGCOLOR-FADE));
   --BODY-BGCOLOR: #FFF; 
   --BORDER-COLOR: #000;
@@ -515,7 +515,7 @@ html, body {
   font-size: 0.8em;
   margin-top: 0.3em;
 }
-.custom-map-control-button {
+.custom-map-control-button, #showFilterButton {
   background-color: var(--bg-color) !important; /* Force the background color */
   color: var(--text-color) !important; /* Force text color */
   border: none !important; /* Force removal of border */
@@ -525,6 +525,33 @@ html, body {
   font-size: 16px !important;
   cursor: pointer !important;
   border-radius: 5px !important; /* Optional: adds rounded corners */
+}
+
+.mapfavorite-btn,
+.report-btn {
+  position: absolute !important;
+  top: 10px !important;
+  right: 15px !important;
+  display: block !important; /* Ensure they are visible */
+  background: white;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  z-index: 1000 !important; /* Ensure they are on top */
+}
+
+.mapfavorite-btn {
+  right: 50px !important; /* Space it properly */
+}
+
+.report-btn {
+  right: 10px !important;
+  background-color: var(--bg-color);
+  color: white !important;
+}
+
+.mapfavorite-btn:hover {
+  transform: scale(1.2);
 }
 
 [data-theme="dark"].custom-map-control-button {
@@ -542,7 +569,7 @@ html, body {
   gap: 15px; /* Add spacing between buttons */
   padding: 10px; /* Add padding around the container */
   position: absolute; /* Allow positioning relative to the map or page */
-  bottom: 150px; /* Adjust vertical position */
+  bottom: 165px; /* Adjust vertical position */
   right: 100px; /* Adjust horizontal position */
   background-color: var(--bg-color); /* Optional background */
   border-radius: 8px; /* Rounded corners for the container */
@@ -554,13 +581,11 @@ html, body {
     bottom: 110px;
     right: 100px;
     z-index: 1000;
-    background-color: #007bff;
-    color: white;
     border: none;
-    padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;
   }
+
 
   #showFilterButton:hover {
     background-color: #0056b3;
@@ -576,6 +601,7 @@ html, body {
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s; /* Smooth hover effect */
 }
+
 [data-theme="dark"].filter-button {
  background-color: #000;
  color: #000 ;
@@ -625,6 +651,7 @@ html, body {
   content: "\f107";
   padding-left: 8px;
 }
+
 @media screen and (max-width: 932px) {
     .header-title-line {
       display: flex;
