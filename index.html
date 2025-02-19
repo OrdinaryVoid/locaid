@@ -295,8 +295,7 @@
           </div>
         {{/if}}
       </script>
-    </head>
-    <body>
+
       <div class="neighborhood-discovery">
         <div class="places-panel panel no-scroll">
           <header class="navbar">
@@ -321,7 +320,7 @@
           <img alt="place photo"/>
           <div>
             <button class="mapfavorite-btn">☆</button>
-            <button class="report-btn">x</button>
+            <button class="report-btn"><a href="remove.html"><img src="img/Screenshot 2025-02-07 at 9.16.04 PM-3.png" alt="Report Button" height="30" width="30"></a></button>
             <button id="back-button" class="back-button">
               <img class="icon" src="https://fonts.gstatic.com/s/i/googlematerialicons/arrow_back/v11/24px.svg" alt="back"/>
             </button>
@@ -336,13 +335,15 @@
           <label for="type-select" id="type-label">Choose Type:</label>
           <select id="type-select">
             <option id="allTypesButton" value="allType">All Types</option>
-            <option id="foodBankButton" value="Foodbanks">Food Bank</option>
+            <option id="foodBankButton" value="Food Bank">Food Bank</option>
             <option id="internetButton" value="Internetspot">Internet Spots</option>
             <option id="housingButton" value="Housing">Housing</option>
             <option id="financialButton" value="Financial">Financial</option>
             <option id="waterFountainButton" value="water_fountain">Water Fountain</option>
             <option id="openNowButton" value="openNow">Open Now </option>
           </select>
+          <br>
+          <br>
           <label for="distance-select" id="distance-label">Choose Distance:</label>
           <select id="distance-select">
             <option value="2">2 miles</option>
@@ -360,14 +361,26 @@
         </svg>
       </div>
       <script>
-        document.getElementById("showFilterButton").addEventListener("click", function () {
-          const filterContainer = document.getElementById("filterContainer");
-          if (filterContainer.style.display === "none" || filterContainer.style.display === "") {
-            filterContainer.style.display = "block"; // Show the filter container
-          } else {
-            filterContainer.style.display = "none"; // Hide the filter container
-          }
-        });
+        // Initialize button text based on current filter visibility
+  const filterContainer = document.getElementById("filterContainer");
+  const showFilterButton = document.getElementById("showFilterButton");
+  
+  // Set initial button text based on computed style
+  const initialDisplay = window.getComputedStyle(filterContainer).display;
+  showFilterButton.textContent = initialDisplay === "none" ? "Show Filters" : "Hide Filters";
+
+  // Toggle functionality
+  showFilterButton.addEventListener("click", function() {
+    // Toggle visibility
+    if (filterContainer.style.display === "none" || filterContainer.style.display === "") {
+      filterContainer.style.display = "block";
+    } else {
+      filterContainer.style.display = "none";
+    }
+    
+    // Update button text based on new state
+    this.textContent = filterContainer.style.display === "block" ? "Hide Filters" : "Show Filters";
+  });
         const translationAPIKey = "AIzaSyA90o0-BpfI7NmwgajX_frr51V7O1hhHes";
         async function translateText(text, targetLanguage) {
           if (targetLanguage === "en") {
