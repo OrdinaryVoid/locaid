@@ -105,7 +105,7 @@
   <script>
     // Fetch and display programs
       function fetchAndDisplayPrograms() {
-        const filterType = 'Food'; 
+        const filterType = 'Housing'; 
         const searchQuery = document.getElementById('search-bar').value.toLowerCase(); // Get search input
         database.ref('programs/').once('value', (snapshot) => {
           const programs = snapshot.val();
