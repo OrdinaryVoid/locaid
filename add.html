@@ -9,11 +9,12 @@
     <title>Place ID Finder</title>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-  <link rel="stylesheet" href="css/add.css">
+  <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/program.css">
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
   <script src="js/program.js"></script>
-  <script src="js/add.js"></script>
+  <script src="js/more.js"></script>
+  
 </head>
 <header class="header">
   <section class="header-title-line">
@@ -94,7 +95,7 @@ const firebaseConfig = {
         if (locationType === "place") {
           // If "Place" is selected, get the PlaceID
           const placeID = document.getElementById('placeID').value;
-					const status = "pending"
+          const status = "pending"
           if (placeID) {
             // Write placeID to Firebase under 'locations/places'
             database.ref('locations/places/' + placeID).set({
@@ -113,15 +114,15 @@ const firebaseConfig = {
         } else if (locationType === "water") {
           // If "Water Fountain" is selected, get Latitude and Longitude
           const latitude = parseFloat(document.getElementById('latitude').value);
-          const longitude = parseFloat(document.getElementById('longitude').value);				const status = "pending"
+          const longitude = parseFloat(document.getElementById('longitude').value);       const status = "pending"
 
           // Check if latitude and longitude are valid numbers
           if (!isNaN(latitude) && !isNaN(longitude)) {
             console.log("Latitude:", latitude, "Longitude:", longitude);
             // Write latitude and longitude to Firebase under 'locations/waterFountains'
-						const sanitizedLatitude = latitude.toString().replace(/\./g, "_");
-          	const sanitizedLongitude = longitude.toString().replace(/\./g, "_");
-          	const waterFountainID = `lat${sanitizedLatitude}_lng${sanitizedLongitude}`; 
+            const sanitizedLatitude = latitude.toString().replace(/\./g, "_");
+            const sanitizedLongitude = longitude.toString().replace(/\./g, "_");
+            const waterFountainID = `lat${sanitizedLatitude}_lng${sanitizedLongitude}`; 
             database.ref('locations/waterFountains/' + waterFountainID).set({
               latitude: latitude,
               longitude: longitude,
@@ -198,7 +199,7 @@ const firebaseConfig = {
       const waterRadio = document.getElementById('water');
       const placeFields = document.getElementById('placeFields');
       const waterFields = document.getElementById('waterFields');
-			const mapElement = document.getElementById('map');
+      const mapElement = document.getElementById('map');
       if (placeRadio.checked) {
         placeFields.style.display = 'block';
         waterFields.style.display = 'none';
@@ -268,7 +269,7 @@ const firebaseConfig = {
       const description = document.getElementById('programDescription').value;
       const link = document.getElementById('programLink').value;
       const type = document.getElementById('programType').value;
-			const status = "pending"
+      const status = "pending"
       if (title && description && link && type && status) {
         const programID = `program_${Date.now()}`; // Generate a unique program ID
         const programData = {
@@ -291,7 +292,7 @@ const firebaseConfig = {
         alert("Please fill in all program fields.");
       }
     }
-		
+    
     // Attach event listeners to the main category radio buttons
     document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('locations').addEventListener('change', toggleMainOptions);
@@ -418,7 +419,7 @@ const firebaseConfig = {
        </fieldset>
       </div>
     </form>
-    <div style="display: none">
+    <div style="display: none;">
       <input
         id="pac-input"
         class="controls"
@@ -433,8 +434,7 @@ const firebaseConfig = {
       <span id="place-address"></span>
     </div>
     <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMFHZuxDnyiGGznedA1NgfdSLcGoUoNJ0&callback=initMap&libraries=places,geometry&solution_channel=GMP_QB_neighborhooddiscovery_v3_cADEF&language=${userLanguage}"
-      defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMFHZuxDnyiGGznedA1NgfdSLcGoUoNJ0&callback=initMap&libraries=places&v=weekly" defer
     ></script>
   </body>
 </html>
