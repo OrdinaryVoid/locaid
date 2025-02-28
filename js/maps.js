@@ -232,9 +232,9 @@ function NeighborhoodDiscovery(configuration) {
     const markerPath = widgetEl.querySelector('.marker-pin path').getAttribute('d');
     const drawMarker = function(title, position, fillColor, strokeColor, labelText) {
       // Ensure labelText is a string
-      const validLabelText = labelText && typeof labelText === 'string' ? labelText : '';
-      const validStrokeColor = typeof strokeColor === 'string' ? strokeColor : '#000000';  // Default to black if invalid
     
+      const validStrokeColor = typeof strokeColor === 'string' ? strokeColor : '#000000';  // Default to black if invalid
+      const validLabelText = '•';
       const marker = new google.maps.Marker({
           title: title,
           position: position,
@@ -245,16 +245,16 @@ function NeighborhoodDiscovery(configuration) {
               fillOpacity: 1,
               strokeColor: validStrokeColor,
               anchor: new google.maps.Point(13, 35),
-              labelOrigin: new google.maps.Point(13, 13),
+              labelOrigin: new google.maps.Point(13, 11),
           },
           label: {
               text: validLabelText,  // Ensure it's a valid string
               color: 'white',
-              fontSize: '16px',
-              fontFamily: 'Material Icons',
+                  fontSize: '55px',
+                  fontFamily: 'Material Icons',
           },
       });
-  
+     
       // Make sure placeId is accessible when updating markers// Explicitly store the placeId in the marker
   
       return marker;
