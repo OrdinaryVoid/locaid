@@ -1,1 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feedback Page</title>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="js/more1.js"></script>
+  <link rel="stylesheet" href="css/program.css">
+</head>
+<body>
+    <header class="header">
+        <section class="header-title-line">                    
+            <button id="menuButton" class="menu-button">
+                <div class="menu-icon"></div>
+            </button>
+        </section>
+        <img src="img/Screenshot 2025-01-30 at 12.54.57 PM-2.png" alt="LOCATE Logo" title="Placeholder" width="80" height="80" class="header__img">
+        <nav class="header__nav" id="nav-menu">
+            <ul class="header__ul center nowrap">
+                <li><p class="header__li"><a href="home.html" target="_blank" id="home">Home</a></p></li>
+                <li><p class="header__li"><a href="favorites.html" target="_blank" id="favorites">Favorites</a></p></li>
+                <li><p class="header__li"><a href="events.html" target="_blank" id="events">Events</a></p></li>
+    
+                <div class="dropdown">
+                    <li><p class="header__li dropdown-arrow" id="btn">
+                        <button class="dropdown-button" onclick="toggleDropdown('programs')" id="programs">Programs</button>
+                    </p></li>
+                    <div class="dropdown-content" id="programs-dropdown">
+                        <ul class="dropdown__ul">
+                            <li><a href="food.html" target="_blank" id="food">Food</a></li>
+                            <li><a href="healthcare.html" target="_blank" id="healthcare">Healthcare</a></li>
+                            <li><a href="housing.html" target="_blank" id="housing">Housing</a></li>
+                            <li><a href="financial.html" target="_blank" id="financial">Financial</a></li>
+                            <li><a href="other.html" target="_blank" id="other">Other</a></li>
+                        </ul>
+                    </div>
+                </div>
+    
+                <div class="dropdown">
+                    <li><p class="header__li dropdown-arrow" id="nav btn">
+                        <button class="dropdown-button" onclick="toggleDropdown('more')" id="more">More</button>
+                    </p></li>
+                    <div class="dropdown-content" id="more-dropdown">
+                        <ul class="dropdown__ul">
+                            <li><a href="add.html" target="_blank" id="add">Add Item</a></li>
+                            <li><a href="remove.html" target="_blank" id="remove">Remove Item</a></li>
+                            <li><a href="feedback.html" target="_blank" id="feedback">Feedback</a></li>
+                            <li><a href="settings.html" target="_blank" id="settings">Settings</a></li>
+                        </ul>
+                    </div>
+                </div>
+    
+                <li class="li__img"><img src="img/Screenshot 2025-02-06 at 9.40.15 PM.png" alt="LOCATE Logo" title="Placeholder" width="72" height="72"></li>
+    
+            </ul>
+        </nav>
+    </header>
+  <h2 id="mainTitle" id="page-title" class="title">Submit Your Feedback</h2>
+  <form id="feedback-form">
+    <label for="feedback-category" id="feedback-category-label" class="spacing">Category:</label>
+    <select id="feedback-category">
+      <option value="website">Website</option>
+      <option value="service">Service</option>
+      <option value="other">Other</option>
+    </select>
+    <br>
+    <label for="feedback-message" id="feedback-message-label" class="spacing">Your Feedback:</label>
+    <textarea id="feedback-message" required></textarea>
+    <br>
+    <button type="submit" id="feedback-submit">Submit Feedback</button>
+  </form>
 
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const storedTitle = localStorage.getItem("feedbackTitle");
+      const storedCategory = localStorage.getItem("feedbackCategory");
+      if (storedTitle) {
+        document.getElementById("feedback-title").value = storedTitle;
+        localStorage.removeItem("feedbackTitle");
+      }
+     
+      if (storedCategory) {
+        document.getElementById("feedback-category").value = storedCategory;
+        localStorage.removeItem("feedbackCategory");
+      }
+    });
+
+    document.getElementById("feedback-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const title = document.getElementById("feedback-title").value;
+      const category = document.getElementById("feedback-category").value;
+      const message = document.getElementById("feedback-message").value;
+     
+      database.ref("feedbacks/").push({
+        title: title,
+        category: category,
+        message: message,
+        status: "received"
+      }).then(() => {
+        alert("Feedback submitted successfully.");
+      }).catch(error => {
+        console.error("Error submitting feedback:", error);
+      });
+    });
+
+    window.onload = () => {
+      const elementsToTranslate = [
+        { id: "mainTitle", text: "Submit Your Feedback" },
+        { id: "feedback-title-label", text: "Title" },
+        { id: "feedback-category-label", text: "Category" },
+        { id: "feedback-category", isSelect: true },
+        { id: "feedback-message-label", text: "Your Feedback" },
+        { id: "feedback-submit", text: "Submit Feedback" },
+      ];
+      translatePage(elementsToTranslate);
+    };
+  </script>
+</body>
+</html>
