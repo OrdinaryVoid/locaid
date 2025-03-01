@@ -24,9 +24,9 @@
         <img src="198f35b9-c8b1-4155-8c3e-dcce2e937c1c.jpg" alt="LOCATE Logo" title="Placeholder" width="80" height="80" class="header__img">
         <nav class="header__nav" id="nav-menu">
             <ul class="header__ul center nowrap">
-                <li><p id="nav" class="header__li"><a href="index.html" target="_blank">Home</a></p></li>
-                <li><p id="nav" class="header__li"><a href="favorites.html" target="_blank">Favorites</a></p></li>
-                <li><p id="nav" class="header__li"><a href="events.html" target="_blank">Events</a></p></li>
+                <li><p id="nav" class="header__li"><a href="index.html"  >Home</a></p></li>
+                <li><p id="nav" class="header__li"><a href="favorites.html"  >Favorites</a></p></li>
+                <li><p id="nav" class="header__li"><a href="events.html"  >Events</a></p></li>
     
                 <div class="dropdown">
                     <li><p id="nav" class="header__li dropdown-arrow">
@@ -34,11 +34,11 @@
                     </p></li>
                     <div class="dropdown-content" id="programs-dropdown">
                         <ul class="dropdown__ul">
-                            <li><a href="food.html" target="_blank">Food</a></li>
-                            <li><a href="healthcare.html" target="_blank">Healthcare</a></li>
-                            <li><a href="housing.html" target="_blank">Housing</a></li>
-                            <li><a href="financial.html" target="_blank">Financial</a></li>
-                            <li><a href="other.html" target="_blank">Other</a></li>
+                            <li><a href="food.html"  >Food</a></li>
+                            <li><a href="healthcare.html"  >Healthcare</a></li>
+                            <li><a href="housing.html"  >Housing</a></li>
+                            <li><a href="financial.html"  >Financial</a></li>
+                            <li><a href="other.html"  >Other</a></li>
                         </ul>
                     </div>
                 </div>
@@ -49,10 +49,10 @@
                     </p></li>
                     <div class="dropdown-content" id="more-dropdown">
                         <ul class="dropdown__ul">
-                            <li><a href="add.html" target="_blank">Add Item</a></li>
-                            <li><a href="remove.html" target="_blank">Remove Item</a></li>
-                            <li><a href="feedback.html" target="_blank">Feedback</a></li>
-                            <li><a href="settings.html" target="_blank">Settings</a></li>
+                            <li><a href="add.html"  >Add Item</a></li>
+                            <li><a href="remove.html"  >Remove Item</a></li>
+                            <li><a href="feedback.html"  >Feedback</a></li>
+                            <li><a href="settings.html"  >Settings</a></li>
                         </ul>
                     </div>
                 </div>
@@ -197,9 +197,9 @@
               </span>
             {{/if}}
             {{#if numReviews}}
-              <a href="{{url}}" target="_blank">{{numReviews}} reviews</a>
+              <a href="{{url}}"  >{{numReviews}} reviews</a>
             {{else}}
-              <a href="{{url}}" target="_blank">See on Google Maps</a>
+              <a href="{{url}}"  >See on Google Maps</a>
             {{/if}}
             {{#if priceLevel}}
               &#183;
@@ -225,7 +225,7 @@
             <div class="contact">
               <img src="https://fonts.gstatic.com/s/i/googlematerialicons/public/v10/24px.svg" alt="Website" class="icon"/>
               <div class="text">
-                <a href="{{website}}" target="_blank">{{websiteDomain}}</a>
+                <a href="{{website}}"  >{{websiteDomain}}</a>
               </div>
             </div>
           {{/if}}
@@ -263,7 +263,7 @@
             <p class="attribution">Reviews by Google users</p>
             {{#each reviews}}
               <div class="review">
-                <a class="reviewer-identity" href="{{author_url}}" target="_blank">
+                <a class="reviewer-identity" href="{{author_url}}"  >
                   <div class="reviewer-avatar" style="background-image:url({{profile_photo_url}})"></div>
                   <div class="reviewer-name">{{author_name}}</div>
                 </a>
