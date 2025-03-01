@@ -567,6 +567,7 @@ html, body {
   right: 10px !important;
   background-color: var(--bg-color);
   color: white !important;
+  mix-blend-mode: multiply;
 }
 
 .mapfavorite-btn:hover {
