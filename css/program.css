@@ -268,6 +268,10 @@ html {
  text-align: right;
 }
 
+.favorite-btn {
+ font-size: 2rem;
+}
+
 .program-item .favorite-btn {
  background: none;
  border: none;
