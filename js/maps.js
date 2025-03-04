@@ -206,8 +206,8 @@ function NeighborhoodDiscovery(configuration) {
     const mapOptions = configuration.mapOptions;
     const filterButton = document.getElementById("filterButton");
     widget.mapBounds = new google.maps.LatLngBounds(
-      new google.maps.LatLng(-30, -180), // Bottom-left corner (Southwest)
-      new google.maps.LatLng(65, 180)    // Northeast corner of bounds (lat, lng)
+      new google.maps.LatLng(-90, -180), // Bottom-left corner (Southwest)
+      new google.maps.LatLng(90, 180)    // Northeast corner of bounds (lat, lng)
     );
     mapOptions.restriction = {latLngBounds: widget.mapBounds};
     mapOptions.mapTypeControlOptions = {position: google.maps.ControlPosition.TOP_RIGHT};
