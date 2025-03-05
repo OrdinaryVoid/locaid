@@ -9,6 +9,7 @@
  box-sizing: border-box;
 }
 
+/* General Style for maps; sets height, width, gets rid of background, and displays as a block element*/
 img {
  display: block;
  max-width: 100%;
@@ -16,16 +17,19 @@ img {
  mix-blend-mode: multiply;
 }
 
+/*For forms, it inherets the font*/
 input,
 button,
 textarea {
  font: inherit;
 }
 
+/*Sets cursor when hovering to a click icon*/
 button {
  cursor: pointer;
 }
 
+/*Gets rid of bullet points*/
 li {
  list-style: none;
 }
@@ -71,22 +75,27 @@ li {
 }
 
 /* UTILITY CLASSES */
+/*Sets element off the screen*/
 .offscreen {
  position: absolute;
  left: -100000px;
 }
-
+/*Makes an element not display*/
 .display_none {
  display: none;
 }
+
+/*Doesn't allow for text to create a new line*/
 .nowrap {
  white-space: nowrap;
 }
 
+/*Centers text*/
 .center {
  text-align: center;
 }
 
+/*Sets scroll to be smooth, and general font style, size, and background color*/
 html {
  scroll-behavior: smooth;
  font-family: var(--FF);
@@ -94,6 +103,7 @@ html {
  background-color: var(--bg-color);
 }
 
+/*Header element styling; sets to top, and has a border on bottom*/
 .header {
  position: static;
  top: 0;
@@ -101,15 +111,20 @@ html {
  border-bottom: var(--BORDERS);
 }
 
+/*Makes image in header not appear*/
 .header__img {
  display: none;
 }
 
+/* NAVIGATION BAR STYLING */
+
+/*Sets the navigation bar to have the same background color, and be bold*/
 .header__nav {
  background-color: var(--bg-color);
  font-weight: bold;
 }
 
+/*Sets font-size, padding, gap, and makes it so it's a flex item so the items in the navigation bar are spaced apart equally and centered*/
 .header__ul {
  font-size: var(--FS-NAV);
  padding: var(--PADDING-TB) var(--PADDING-SIDE);
@@ -120,10 +135,12 @@ html {
  gap: var(--GAP);
 }
 
+/*Makes title-line element in HTML not appear*/
 .header-title-line {
  display: none;
 }
 
+/*Styling so that the arrow appears*/
 .dropdown-arrow::after {
  font-family: FontAwesome;
  font-size: 1.5rem;
@@ -131,7 +148,7 @@ html {
  padding-left: 8px;
 }
 
-/* Dropdown button styling */
+/*Dropdown button styling*/
 .dropdown-button, .header__li a {
  background-color: var(--bg-color);
  text-decoration: none;
@@ -141,10 +158,12 @@ html {
  cursor: pointer;
 }
 
+/*When dropdown button is hovered, the background is lighter*/
 .dropdown-button:hover, .header__li a:hover {
  background-color: var(--bg-color-light);
 }
 
+/*Styling for the content in the dropdown; font size, background  color, shadowing, and minimum width for the boxes*/
 .dropdown-content {
  display: none;
  font-size: var(--FS);
@@ -155,24 +174,29 @@ html {
  z-index: 1;
 }
 
+/*When the element is set to visible through the JavaScript, it appears*/
 .dropdown-content.visible {
  display: block;
 }
 
+/*Sets styling for the element, ul, with class dropdown-content*/
 .dropdown-content ul {
  list-style: none;
  padding: 0;
 }
 
+/*Sets styling for when a li element is in the ul element in the HTML, and applies padding and aligns left*/
 .dropdown-content ul li {
  padding: 4px 2px;
  text-align: left;
 }
 
+/*When it's hovered, the background color is lighter*/
 .dropdown-content ul li:hover {
  background-color: var(--bg-color-light);
 }
 
+/*Sets styling for when a link element is in a li in a ul element in the HTML, and gets rid of text styling, the color for the font, displays as block, and padding*/
 .dropdown-content ul li a {
  text-decoration: none;
  color: var(--text-color);
@@ -180,25 +204,32 @@ html {
  padding: 4px 8px;
 }
 
+/*When the link is hovered, the background color is lighter*/
 .dropdown-content ul li a:hover {
  background-color: var(--bg-color-light);
 }
 
+/* PROGRAM, EVENT, AND FAVORITES TEMPLATE STYLING*/
+
+/*Sets the container for the program image and text to be relative and as an inline-block, which applies both an inline and a block element styling*/
 .container {
  position: relative;
  display: inline-block;
 }
 
+/*For the image in the container, the background isn't removed, is a block, and is slightly transparent*/
 .container img {
   mix-blend-mode: normal;
  display: block;
  opacity: 0.7;
 }
 
+/*For the image for mobile, it doesn't appear on larger devices*/
 #mobile.mobile-img {
  display: none;
 }
 
+/*For the text in the continer, it applies styling and makes it centered on the image*/
 .centered-text {
  position: absolute;
  top: 0;
@@ -214,13 +245,14 @@ html {
  text-align: center;
 }
 
+/*Styling for the dropdown for the information in the program dropdown*/
 .program.dropdown {
  position: relative;
  border: var(--BORDERS);
  text-align: left;
 }
 
-
+/*Styling for the program-item class in the HTML*/
 .program-item {
  position: relative;
  width: 100%;
@@ -228,33 +260,42 @@ html {
  overflow: hidden;
 }
 
+/*Sets the image under the program-item class to have a margin of right*/
 .program-item .program_img {
  margin-right: 1rem;
 }
 
+/*For the events page, under the program-item, the maps goes towards the left and has a margin only on the right  */
 .event .program-item .program_img {
  float: left;
  margin-right: 1rem;
 }
+
+/*For the image with class program_img, it's an inline-block and is aligned centered vertically*/
 #img.program_img {
  display: inline-block;
  vertical-align: middle;
 }
 
+/*Sets the styling for  each item and sets as an inline-block, text is aigned, sets the font-size, 
+line-height controls the vertical position, and width is the width of the title which affects the boxes ability to hold items; 
+the more subtracted, the more space*/
 .program-item .program-title {
  display: inline-block;
- width: calc(100% - 225px);
+ width: calc(100% - 250px);
  text-align: center;
  font-size: var(--FS);
  margin: 0;
  line-height: 75px;
 }
 
+/*Same as the last comment but for events items*/
 .event .program-item .program-title {
- width: calc(100% - 250px);
+ width: calc(100% - 275px);
  line-height: 115px;
 }
 
+/*Sets the title to be an inline-block, centered fully, and for the white-space to act regularly*/
 #title.program-title {
  display: inline-block;
  vertical-align: middle;
@@ -262,16 +303,19 @@ html {
  white-space: normal;
 }
 
+/*Sets the favorites button to be an inline-block, vertically aligned middle, and right aligned */
 #btn.favorite-btn {
  display: inline-block;
  vertical-align: middle;
  text-align: right;
 }
 
+/*Sets the size for the button*/
 .favorite-btn {
- font-size: 1.5rem;
+ font-size: 2rem;
 }
 
+/*Sets the cursor to pointer for the favorites button and resets the background and border*/
 .program-item .favorite-btn {
  background: none;
  border: none;
@@ -279,6 +323,7 @@ html {
  margin-left: 1rem;
 }
 
+/*Styling for the detailed dropdown content*/
 .program.dropdown-content {
  position: relative;
  width: 100%;
@@ -289,26 +334,32 @@ html {
  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/*Positioned relative for detailed dropdown*/
 .program.dropdown {
  position: relative;
 }
 
+/*Full width on page for each item*/
 .program-item {
  width: 100%;
 }
 
+/*Add margin on images*/
 .program-item .program_img {
  margin-right: 1rem;
 }
 
+/*Title is left aligned*/
 .program-item .program-title {
  text-align: left;
 }
 
+/*Favorite button is slightly pushed from the left*/
 .program-item .favorite-btn {
  margin-left: 1rem;
 }
 
+/*Styling for the dropdown content*/
 .program.dropdown-content {
  position: relative;
  display: none;
@@ -319,34 +370,41 @@ html {
  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/*When the button is clicked, it becomes visible; displays as block*/
 .program.dropdown-content.visible {
  display: block;
 }
 
+/*Resets for the ul element in the HTML for the dropdown*/
 .program.dropdown-content ul {
  margin: 0;
  padding: 0;
  list-style-type: none;
 }
 
+/*Padding for list items*/
 .program.dropdown-content ul li {
  padding: 0.5rem 0;
 }
 
+/*Sets color, resets text styling, and displays as block for buttons*/
 .program.dropdown-content ul li a {
  text-decoration: none;
  color: #333;
  display: block;
 }
 
+/*When the button is hovered, the background color is lighter*/
 .program.dropdown-content ul li a:hover {
  background-color: var(--bg-color-light);
 }
 
+/*The images for the programs are aligned left*/
 #img.program_img {
  align-items: left;
 }
 
+/*Styling for each item*/
 .program-item {
  position: relative;
  align-items: center;
@@ -354,36 +412,43 @@ html {
  padding: 0.5rem;
 }
 
+/*Aligns title center, font size is larger, and no margins*/
 .program-item .program-title {
  text-align: center;
  font-size: var(--FS-TITLE);
  margin: 0;
 }
 
+/*For titles with the title element, the font size is larger, more padding, and has a bottom border*/
 .center.title {
  font-size: 4rem;
  padding: 2rem;
  border-bottom: var(--BORDERS);
 }
 
+/*For titles with the page-title, it sets the font size and the padding on the bottom*/
 #page-title {
   font-size: 2rem;
   padding-bottom: 0.75rem;
 }
 
+/*Adds padding on top for the language label id*/
 #language-label {
   padding-top: 2rem;
 }
 
+/*For the class sub-title, it sets padding and font size*/
 .sub-title {
  padding: 0.6rem;
  font-size: clamp(1.5rem, 4vh, 2.25rem);
 }
 
+/*For elements with class gm-svpc, it doesn't display*/
 .gm-svpc {
  display: none !important;
 }
 
+/*Styling for the report button*/
 .report-btn {
  border: none;
  display: inline-block;
@@ -391,6 +456,7 @@ html {
  background-color: var(--bg-color);
 }
 
+/*Styling for the search bar*/
 #search-bar {
   width: 37.5%;
   background-color: whitesmoke;
@@ -400,6 +466,7 @@ html {
   border: var(--BORDERS);
 }
 
+/*Animation for when the menu is shown; gets larger then goes to normal*/
 @keyframes showMenu {
  0% {
  transform: scaleY(0);
@@ -414,8 +481,9 @@ html {
  }
 }
 
-
+/*Styling ONLY for when the width of the device is less than or equal to 932px; mainly for mobile*/
 @media screen and (max-width: 932px) {
+ /*For the header, it's in a row and has equal sapce in between, and has padding*/
  .header-title-line {
  display: flex;
  flex-flow: row nowrap;
@@ -423,6 +491,7 @@ html {
  padding: 2.7rem 27%;
  }
 
+ /*The logo for mobile is stylized here; making it in the top right corner*/
  .header__img {
  display: block;
  position: absolute;
@@ -434,10 +503,12 @@ html {
  text-align: center;
  }
 
+ /*Gets rid of image used for larger devices*/
  .li__img {
  display: none;
  }
 
+ /*Styling specifically the navigation button*/
  .menu-button {
  background-color: transparent;
  border: none;
@@ -454,7 +525,7 @@ html {
  z-index: 1000;
  }
 
-
+ /*For the menu button in all instancesm it has this styling*/
  .menu-icon,
  .menu-icon::before,
  .menu-icon::after {
@@ -466,11 +537,13 @@ html {
  transition: all 0.5s;
  }
 
+ /*Before and after so that it appears properly*/
  .menu-icon::before,
  .menu-icon::after {
  content: "";
  }
 
+ /*All ::before and ::after deal with making it so that the icon turns from the three bars to an X*/
  .menu-icon::before {
  transform: translate(-20px, -12px);
  }
@@ -479,6 +552,7 @@ html {
  transform: translate(-20px, 12px);
  }
 
+ /*Styling for when it's pressed and rotates*/
  header.active .menu-icon {
  background-color: transparent;
  transform: rotate(360deg);
@@ -492,10 +566,12 @@ html {
  transform: translateX(-20px) rotate(-45deg);
  }
 
+ /*When the button is active, the navigation bar opens*/
  header.active nav {
  display: block;
  }
 
+ /*Special syling for the mobile navigation bar*/
  nav {
  position: relative;
  background-color: var(--bg-color);
@@ -504,6 +580,7 @@ html {
  width: 100%;
  }
 
+ /*Displays as flex so the navigation bar appears as a column and is vertical*/
  nav ul {
  list-style-type: none;
  padding: 0;
@@ -514,11 +591,13 @@ html {
  align-items: stretch;
  }
 
+ /*Sets a border on top for every list item*/
  nav li {
  border-top: 1px solid var(--contrast-bg-color);
  width: 100%;
  }
 
+ /*This is the styling for the links*/
  nav a {
  display: block;
  width: 100%;
@@ -528,6 +607,7 @@ html {
  color: var(--bg-color);
  }
 
+ /*For the header, it reinforces the column direction*/
  .header__ul {
  list-style: none;
  padding: 0;
@@ -537,6 +617,7 @@ html {
  align-items: stretch;
  }
 
+ /*For the list items, it also has more styling*/
  .header__li {
  align-self: center;
  padding: 1rem;
@@ -546,14 +627,17 @@ html {
  line-height: 0.8;
  }
 
+ /*No border for elements with both the program and header__li classes*/
  .program.header__li {
  border-top: none;
  }
 
+ /*The dropdown is positioned relative*/
  .dropdown {
  position: relative;
  }
 
+ /*The dropdown content has a special styling so that the width spans across the whole screen*/
  .dropdown-content {
  position: static;
  right: 0;
@@ -567,36 +651,43 @@ html {
  animation: showMenu 0.5s ease-in-out forwards;
  }
 
+ /*Resets for the dropdown content class with an ul element*/
  .dropdown-content ul {
  margin: 0;
  padding: 0;
  list-style-type: none;
  }
 
+ /*Sets styling for the drowdown content class under an li element*/
  .dropdown-content ul li {
  padding: 0.5rem 0rem;
  border-top: none;
  line-height: 1;
  }
 
+ /*For links with the dropdown content class for a reset for text, has text color and displays as block*/
  .dropdown-content ul li a {
  text-decoration: none;
  color: var(--text-color);
  display: block;
  }
 
+ /*When links are hovered, background color is lighter*/
  .dropdown-content ul li a:hover {
  background-color: var(--bg-color-light);
  }
 
+ /*Displays the specific mobile image for programs page*/
  #mobile.mobile-img {
  display: block;
  }
 
+ /*Gets rid of the specific computer image for the programs page*/
  #comp.comp-img {
  display: none;
  }
 
+ /*Special text size for titles with class, centered-text*/
  .centered-text {
  font-size: var(--MOBILE-FS-XL);
  }
