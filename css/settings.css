@@ -1,24 +1,29 @@
+/*VARIABLES*/
 :root {
   --bg-color: #ffffff;
   --text-color: #000000;
 }
 
+/*Change Variables when dark mode is activated*/
 [data-theme="dark"] {
   --bg-color: #000000;
   --text-color: #ffffff;
 }
 
+/*Sets background color and text-color for page*/
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
 }
 
+/*Styling for elements with id theme-instruction*/
 #theme-instruction {
   display: inline-block;
   margin-right: 10px;
   vertical-align: middle;
 }
 
+/*Styling to make the switch*/
 .switch {
   position: relative;
   display: inline-block;
@@ -27,12 +32,14 @@ body {
   vertical-align: middle;
 }
 
+/*For the input element in the HTML with class switch*/
 .switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
 
+/*Creates the slider inside the switch*/
 .slider {
   position: absolute;
   cursor: pointer;
@@ -45,6 +52,7 @@ body {
   border-radius: 34px;
 }
 
+/*Creates the circle inside the slider and when the circle goes to the other side*/
 .slider:before {
   position: absolute;
   content: "";
@@ -57,10 +65,12 @@ body {
   border-radius: 50%;
 }
 
+/*When the switch is on dark mode, it changes color*/
 input:checked + .slider {
   background-color: #2196F3;
 }
 
+/*Makes the circle go on the other side*/
 input:checked + .slider:before {
   transform: translateX(26px);
 }
