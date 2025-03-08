@@ -186,7 +186,7 @@ html {
   background-color: var(--bg-color) !important;
   opacity: 1 !important;
 }
-.header__img, .li__img {
+.header__img, .li__img, .report-btn {
   mix-blend-mode: multiply;
 }
 
