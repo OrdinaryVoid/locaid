@@ -74,6 +74,17 @@ li {
  --GAP: clamp(1rem, 5vw, 2rem);
 }
 
+[data-theme="dark"] {
+  --bg-color: #406B53;
+  --bg-color-dark: #355A46;
+  --bg-color-light: #406B53;
+  --bg-color-bright: #4E744E;
+  --text-color: #fff;
+  --contrast-bg-color: #fff;
+  --BORDERS: 1px solid whitesmoke;
+
+}
+
 /* UTILITY CLASSES */
 /*Sets element off the screen*/
 .offscreen {
