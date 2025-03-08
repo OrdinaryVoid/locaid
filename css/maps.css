@@ -570,6 +570,7 @@ html, body {
 }
 
 .report-btn {
+  mix-blend-mode: multiply;
   right: 10px !important;
   background-color: var(--bg-color);
   color: white !important;
